@@ -1,0 +1,9 @@
+{
+  "name": "btb-functions",
+  "version": "0.0.1",
+  "description": "A simple example of using Edge Functions",
+  "private": true,
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  }
+}
