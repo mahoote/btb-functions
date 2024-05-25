@@ -5,4 +5,9 @@ type PlayerPreference = {
     activity: ActivityEnum
 }
 
-export type { PlayerPreference }
+type PreferenceAverages = {
+    avgDrunk: number
+    avgActivity: number
+}
+
+export type { PlayerPreference, PreferenceAverages }
