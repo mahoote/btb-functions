@@ -1,13 +1,13 @@
 enum DrunkEnum {
-    tipsy,
-    drunk,
-    wasted,
+    TIPSY,
+    DRUNK,
+    WASTED,
 }
 
 enum ActivityEnum {
-    low,
-    medium,
-    high,
+    LOW,
+    MEDIUM,
+    HIGH,
 }
 
 export { DrunkEnum, ActivityEnum }
