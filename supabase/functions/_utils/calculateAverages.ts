@@ -3,7 +3,7 @@ import {
     PreferenceAverages,
 } from '../_types/gamePreferences.ts'
 
-const roundToNearestEnum = (value: number): number => {
+function roundToNearestEnum(value: number): number {
     const threshold = 2 / 3 // approximately 0.67
 
     if (value < threshold) {
@@ -15,9 +15,9 @@ const roundToNearestEnum = (value: number): number => {
     }
 }
 
-const calculateAverages = (
+function calculateAverages(
     preferences: PlayerPreference[]
-): PreferenceAverages => {
+): PreferenceAverages {
     if (preferences.length === 0) return { avgDrunk: 0, avgActivity: 0 }
 
     const totalDrunk: number = preferences.reduce(
