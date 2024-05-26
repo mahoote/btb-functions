@@ -15,6 +15,10 @@ function roundToNearestEnum(value: number): number {
     }
 }
 
+function getAverageMargin(average: number, roundedAverage: number): number {
+    return Math.abs(average - roundedAverage)
+}
+
 function calculateAverages(
     preferences: PlayerPreference[]
 ): PreferenceAverages {
@@ -29,10 +33,18 @@ function calculateAverages(
         0
     )
 
-    const avgDrunk = roundToNearestEnum(totalDrunk / preferences.length)
-    const avgActivity = roundToNearestEnum(totalActivity / preferences.length)
+    const avgDrunk = totalDrunk / preferences.length
+    const avgActivity = totalActivity / preferences.length
 
-    return { avgDrunk, avgActivity } as PreferenceAverages
+    const roundedAvgDrunk = roundToNearestEnum(avgDrunk)
+    const roundedAvgActivity = roundToNearestEnum(avgActivity)
+
+    return {
+        avgDrunk: roundedAvgDrunk,
+        avgActivity: roundedAvgActivity,
+        drunkAvgMargin: getAverageMargin(avgDrunk, roundedAvgDrunk),
+        activityAvgMargin: getAverageMargin(avgActivity, roundedAvgActivity),
+    }
 }
 
 export default calculateAverages

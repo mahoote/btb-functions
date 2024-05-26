@@ -22,6 +22,8 @@ Deno.test('should get averages as 1', async () => {
     const expectedResult: PreferenceAverages = {
         avgDrunk: 1,
         avgActivity: 1,
+        drunkAvgMargin: 0,
+        activityAvgMargin: 0.25,
     }
 
     assertEquals(result, expectedResult)

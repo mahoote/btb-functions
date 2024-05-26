@@ -8,6 +8,8 @@ type PlayerPreference = {
 type PreferenceAverages = {
     avgDrunk: number
     avgActivity: number
+    drunkAvgMargin?: number
+    activityAvgMargin?: number
 }
 
 export type { PlayerPreference, PreferenceAverages }
