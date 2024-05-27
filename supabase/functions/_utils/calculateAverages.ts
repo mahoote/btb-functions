@@ -16,7 +16,7 @@ function roundToNearestEnum(value: number): number {
 }
 
 function getAverageMargin(average: number, roundedAverage: number): number {
-    return Math.abs(average - roundedAverage)
+    return Number(Math.abs(average - roundedAverage).toFixed(2))
 }
 
 function calculateAverages(

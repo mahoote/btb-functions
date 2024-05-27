@@ -1,6 +1,7 @@
 import { ActivityEnum, DrunkEnum } from '../_enums/preferencesEnum.ts'
 
 type PlayerPreference = {
+    player_id: string
     drunk: DrunkEnum
     activity: ActivityEnum
 }
