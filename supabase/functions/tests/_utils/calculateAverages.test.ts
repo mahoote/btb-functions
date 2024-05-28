@@ -33,5 +33,5 @@ function newPlayerPreferences(
     drunk: DrunkEnum,
     activity: ActivityEnum
 ): PlayerPreference {
-    return { drunk, activity }
+    return { player_id: 'uuid', drunk, activity }
 }
