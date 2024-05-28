@@ -13,4 +13,10 @@ type PreferenceAverages = {
     activityAvgMargin?: number
 }
 
-export type { PlayerPreference, PreferenceAverages }
+type GamePreferences = {
+    playerPreferences: PlayerPreference[]
+    isPlayerCreative: boolean
+    gameMinutes: number
+}
+
+export type { PlayerPreference, PreferenceAverages, GamePreferences }

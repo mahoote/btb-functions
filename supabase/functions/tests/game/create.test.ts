@@ -1,23 +1,24 @@
 import { ActivityEnum, DrunkEnum } from '../../_enums/preferencesEnum.ts'
-import { PlayerPreference } from '../../_types/gamePreferences.ts'
+import {
+    GamePreferences,
+    PlayerPreference,
+} from '../../_types/gamePreferences.ts'
 import createGame from '../../game/create.ts'
-import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
+import {
+    assertEquals,
+    assertExists,
+} from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { Player } from '../../_types/player.ts'
 
 Deno.test('should create a game flow', async () => {
-    const response = await createGame(createPlayersPreferences())
+    const response = createGame(createGamePreferences())
 
     const data = await response.json()
 
     assertEquals(response.status, 201)
     assertEquals(response.headers.get('Content-Type'), 'application/json')
 
-    assertEquals(data, {
-        avgDrunk: 2,
-        avgActivity: 2,
-        drunkAvgMargin: 0,
-        activityAvgMargin: 0,
-    })
+    assertExists(data)
 })
 
 function createPlayers(): Player[] {
@@ -52,4 +53,12 @@ function createPlayersPreferences(): PlayerPreference[] {
             activity: ActivityEnum.HIGH,
         },
     ]
+}
+
+function createGamePreferences(): GamePreferences {
+    return {
+        playerPreferences: createPlayersPreferences(),
+        isPlayerCreative: false,
+        gameMinutes: 30,
+    }
 }

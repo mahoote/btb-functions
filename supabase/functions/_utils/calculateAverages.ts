@@ -3,8 +3,15 @@ import {
     PreferenceAverages,
 } from '../_types/gamePreferences.ts'
 
+/**
+ * Based on the threshold that is approximately 0.67, round the average to the nearest enum.
+ * This means that if the average is between 0 and 0.67, it will be rounded to 0.
+ * If the average is between 0.67 and 1.33, it will be rounded to 1.
+ * In this way, the decision is made based on the majority of the votes.
+ * @param value
+ */
 function roundToNearestEnum(value: number): number {
-    const threshold = 2 / 3 // approximately 0.67
+    const threshold = 2 / 3
 
     if (value < threshold) {
         return 0
@@ -15,10 +22,19 @@ function roundToNearestEnum(value: number): number {
     }
 }
 
+/**
+ * Calculate the margin between the average and the rounded average.
+ * @param average
+ * @param roundedAverage
+ */
 function getAverageMargin(average: number, roundedAverage: number): number {
     return Number(Math.abs(average - roundedAverage).toFixed(2))
 }
 
+/**
+ * Calculate the average drunk and activity levels from a list of player preferences.
+ * @param preferences
+ */
 function calculateAverages(
     preferences: PlayerPreference[]
 ): PreferenceAverages {
