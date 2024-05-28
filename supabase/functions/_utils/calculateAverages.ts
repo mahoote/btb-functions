@@ -24,6 +24,8 @@ function roundToNearestEnum(value: number): number {
 
 /**
  * Calculate the margin between the average and the rounded average.
+ * This is useful to determine how much the average is from the majority of the votes.
+ * We use this function for probability calculation to choose games with criteria other than the average.
  * @param average
  * @param roundedAverage
  */
