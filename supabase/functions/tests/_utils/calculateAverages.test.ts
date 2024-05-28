@@ -24,22 +24,22 @@ Deno.test('should get averages as 1', () => {
 function createPlayersPreferences(): PlayerPreference[] {
     return [
         {
-            player_id: 'uuid',
+            player_id: '1',
             drunk: DrunkEnum.DRUNK,
             activity: ActivityEnum.HIGH,
         },
         {
-            player_id: 'uuid',
+            player_id: '2',
             drunk: DrunkEnum.TIPSY,
             activity: ActivityEnum.MEDIUM,
         },
         {
-            player_id: 'uuid',
+            player_id: '3',
             drunk: DrunkEnum.WASTED,
             activity: ActivityEnum.LOW,
         },
         {
-            player_id: 'uuid',
+            player_id: '4',
             drunk: DrunkEnum.DRUNK,
             activity: ActivityEnum.LOW,
         },
