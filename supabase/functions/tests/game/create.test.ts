@@ -5,7 +5,7 @@ import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { Player } from '../../_types/player.ts'
 
 Deno.test('should create a game flow', async () => {
-    const response = createGame(createPlayersPreferences())
+    const response = await createGame(createPlayersPreferences())
 
     const data = await response.json()
 
