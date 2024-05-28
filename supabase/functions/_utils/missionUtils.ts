@@ -19,10 +19,7 @@ function getPlayersWithMission(
         .filter((preference) => {
             const drunk = preference.drunk
 
-            if (drunk > avgDrunk) {
-                return true
-            }
-            if (avgDrunk === DrunkEnum.WASTED && drunk === DrunkEnum.WASTED) {
+            if (drunk > avgDrunk || drunk === DrunkEnum.WASTED) {
                 return true
             }
         })

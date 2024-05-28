@@ -11,7 +11,16 @@ function createGame(preferences: GamePreferences) {
         preferences.playerPreferences
     )
 
-    return createResponse('Game created!', 201)
+    // TODO: Give players with mission a mission.
+
+    // TODO: Fetch games from db. Add a logic for finding games with correct criteria.
+
+    // TODO: Add other stuff like betting and push your luck.
+
+    return createResponse(
+        `Game created! Players id: ${playersWithMission} will get a mission.`,
+        201
+    )
 }
 
 export default createGame

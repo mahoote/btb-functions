@@ -4,10 +4,7 @@ import {
     PlayerPreference,
 } from '../../_types/gamePreferences.ts'
 import createGame from '../../game/create.ts'
-import {
-    assertEquals,
-    assertExists,
-} from 'https://deno.land/std@0.224.0/assert/mod.ts'
+import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { Player } from '../../_types/player.ts'
 
 Deno.test('should create a game flow', async () => {
@@ -18,7 +15,7 @@ Deno.test('should create a game flow', async () => {
     assertEquals(response.status, 201)
     assertEquals(response.headers.get('Content-Type'), 'application/json')
 
-    assertExists(data)
+    assertEquals(data, 'Game created! Players id: 2 will get a mission.')
 })
 
 function createPlayers(): Player[] {
@@ -44,7 +41,7 @@ function createPlayersPreferences(): PlayerPreference[] {
     return [
         {
             player_id: players[0].id,
-            drunk: DrunkEnum.WASTED,
+            drunk: DrunkEnum.DRUNK,
             activity: ActivityEnum.HIGH,
         },
         {
