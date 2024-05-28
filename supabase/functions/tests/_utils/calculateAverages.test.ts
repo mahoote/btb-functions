@@ -6,7 +6,7 @@ import { ActivityEnum, DrunkEnum } from '../../_enums/preferencesEnum.ts'
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import calculateAverages from '../../_utils/calculateAverages.ts'
 
-Deno.test('should get averages as 1', async () => {
+Deno.test('should get averages as 1', () => {
     const player1 = newPlayerPreferences(DrunkEnum.DRUNK, ActivityEnum.HIGH)
     const player2 = newPlayerPreferences(DrunkEnum.TIPSY, ActivityEnum.MEDIUM)
     const player3 = newPlayerPreferences(DrunkEnum.WASTED, ActivityEnum.LOW)
