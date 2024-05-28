@@ -9,7 +9,7 @@ function createGame(preferences: PlayerPreference[]) {
 
     const averages = calculateAverages(preferences)
 
-    return createResponse(averages)
+    return createResponse(averages, 201)
 }
 
 export default createGame
