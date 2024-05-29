@@ -3,21 +3,13 @@ import {
     PreferenceAverages,
 } from '../../_types/gamePreferences.ts'
 import { ActivityEnum, DrunkEnum } from '../../_enums/preferencesEnum.ts'
-import { assertEquals } from 'https://deno.land/std/assert/mod.ts'
+import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import calculateAverages from '../../_utils/calculateAverages.ts'
 
-Deno.test('should get averages as 1', async () => {
-    const player1 = newPlayerPreferences(DrunkEnum.DRUNK, ActivityEnum.HIGH)
-    const player2 = newPlayerPreferences(DrunkEnum.TIPSY, ActivityEnum.MEDIUM)
-    const player3 = newPlayerPreferences(DrunkEnum.WASTED, ActivityEnum.LOW)
-    const player4 = newPlayerPreferences(DrunkEnum.DRUNK, ActivityEnum.LOW)
-
-    const result: PreferenceAverages = calculateAverages([
-        player1,
-        player2,
-        player3,
-        player4,
-    ])
+Deno.test('should get averages as 1', () => {
+    const result: PreferenceAverages = calculateAverages(
+        createPlayersPreferences()
+    )
 
     const expectedResult: PreferenceAverages = {
         avgDrunk: 1,
@@ -29,9 +21,27 @@ Deno.test('should get averages as 1', async () => {
     assertEquals(result, expectedResult)
 })
 
-function newPlayerPreferences(
-    drunk: DrunkEnum,
-    activity: ActivityEnum
-): PlayerPreference {
-    return { drunk, activity }
+function createPlayersPreferences(): PlayerPreference[] {
+    return [
+        {
+            player_id: '1',
+            drunk: DrunkEnum.DRUNK,
+            activity: ActivityEnum.HIGH,
+        },
+        {
+            player_id: '2',
+            drunk: DrunkEnum.TIPSY,
+            activity: ActivityEnum.MEDIUM,
+        },
+        {
+            player_id: '3',
+            drunk: DrunkEnum.WASTED,
+            activity: ActivityEnum.LOW,
+        },
+        {
+            player_id: '4',
+            drunk: DrunkEnum.DRUNK,
+            activity: ActivityEnum.LOW,
+        },
+    ]
 }

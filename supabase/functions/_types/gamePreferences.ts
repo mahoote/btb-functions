@@ -1,6 +1,7 @@
 import { ActivityEnum, DrunkEnum } from '../_enums/preferencesEnum.ts'
 
 type PlayerPreference = {
+    player_id: string
     drunk: DrunkEnum
     activity: ActivityEnum
 }
@@ -12,4 +13,10 @@ type PreferenceAverages = {
     activityAvgMargin?: number
 }
 
-export type { PlayerPreference, PreferenceAverages }
+type GamePreferences = {
+    playerPreferences: PlayerPreference[]
+    isPlayerCreative: boolean
+    gameMinutes: number
+}
+
+export type { PlayerPreference, PreferenceAverages, GamePreferences }
