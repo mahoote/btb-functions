@@ -6,6 +6,7 @@ import { DrunkEnum } from '../_enums/preferencesEnum.ts'
 
 /**
  * If the player wants to get more drunk than the average, they will be given a mission.
+ * They will also get a mission if they want to get wasted.
  * @param averages
  * @param preferences
  */
