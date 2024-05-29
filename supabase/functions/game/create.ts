@@ -18,7 +18,9 @@ function createGame(preferences: GamePreferences) {
     // TODO: Add other stuff like betting and push your luck.
 
     return createResponse(
-        `Game created! Players id: ${playersWithMission} will get a mission.`,
+        JSON.stringify(
+            `Game created! Players id: ${playersWithMission} will get a mission.`
+        ),
         201
     )
 }
