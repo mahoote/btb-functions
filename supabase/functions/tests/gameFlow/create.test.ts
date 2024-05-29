@@ -3,12 +3,12 @@ import {
     GamePreferences,
     PlayerPreference,
 } from '../../_types/gamePreferences.ts'
-import createGame from '../../game/create.ts'
+import createGameFlow from '../../game-flow/create.ts'
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { Player } from '../../_types/player.ts'
 
 Deno.test('should create a game flow', async () => {
-    const response = createGame(createGamePreferences())
+    const response = createGameFlow(createGamePreferences())
 
     const data = await response.json()
 

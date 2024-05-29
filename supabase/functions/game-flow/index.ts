@@ -1,7 +1,7 @@
 import { corsHeaders } from '../_shared/cors.ts'
 import { createErrorResponse } from '../_shared/response.ts'
-import { PlayerPreference } from '../_types/gamePreferences.ts'
-import createGame from './create.ts'
+import { GamePreferences } from '../_types/gamePreferences.ts'
+import createGameFlow from './create.ts'
 
 Deno.serve(async (req): Promise<Response> => {
     const { method } = req
@@ -15,7 +15,7 @@ Deno.serve(async (req): Promise<Response> => {
 
         switch (true) {
             case method === 'POST':
-                return createGame(json as PlayerPreference[])
+                return createGameFlow(json as GamePreferences)
             default:
                 return createErrorResponse('Not found', 404)
         }
