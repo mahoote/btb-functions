@@ -3,19 +3,29 @@ import {
     GamePreferences,
     PlayerPreference,
 } from '../../_types/gamePreferences.ts'
-import createGame from '../../game/create.ts'
+import createGameFlow from '../../game-flow/create.ts'
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { Player } from '../../_types/player.ts'
 
 Deno.test('should create a game flow', async () => {
-    const response = createGame(createGamePreferences())
+    const response = createGameFlow(createGamePreferences())
 
-    const data = await response.json()
+    const result = await response.json()
+
+    const expectedResult = {
+        isPlayerCreative: false,
+        playerMissions: [
+            {
+                mission: 'Mission: Get wasted!',
+                playerId: '2',
+            },
+        ],
+    }
 
     assertEquals(response.status, 201)
     assertEquals(response.headers.get('Content-Type'), 'application/json')
 
-    assertEquals(data, 'Game created! Players id: 2 will get a mission.')
+    assertEquals(result, expectedResult)
 })
 
 function createPlayers(): Player[] {

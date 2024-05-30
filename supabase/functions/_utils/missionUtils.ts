@@ -27,4 +27,8 @@ function getPlayersWithMission(
         .map((preference: PlayerPreference) => preference.player_id)
 }
 
-export { getPlayersWithMission }
+function createMission() {
+    return 'Mission: Get wasted!'
+}
+
+export { getPlayersWithMission, createMission }
