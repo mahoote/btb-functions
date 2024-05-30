@@ -2,7 +2,16 @@ import { createResponse } from '../_shared/response.ts'
 import { GamePreferences } from '../_types/gamePreferences.ts'
 import calculateAverages from '../_utils/calculateAverages.ts'
 import { createMission, getPlayersWithMission } from '../_utils/missionUtils.ts'
-import GameFlow from '../_types/gameFlow.ts'
+import GameFlow, { PlayerMission } from '../_types/gameFlow.ts'
+
+function setPlayerMissions(playersWithMission: string[]) {
+    return playersWithMission.map(
+        (playerId): PlayerMission => ({
+            playerId,
+            mission: createMission(),
+        })
+    )
+}
 
 function createGameFlow(preferences: GamePreferences) {
     const gameFlow: GameFlow = {
@@ -17,17 +26,8 @@ function createGameFlow(preferences: GamePreferences) {
     )
 
     if (playersWithMission.length > 0 && !preferences.isPlayerCreative) {
-        gameFlow.playerMissions = []
-
-        playersWithMission.forEach((playerId) => {
-            gameFlow.playerMissions?.push({
-                playerId,
-                mission: createMission(),
-            })
-        })
+        gameFlow.playerMissions = setPlayerMissions(playersWithMission)
     }
-
-    // TODO: Give players with mission a mission.
 
     // TODO: Fetch games from db. Add a logic for finding games with correct criteria.
 

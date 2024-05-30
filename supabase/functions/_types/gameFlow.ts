@@ -9,3 +9,4 @@ type GameFlow = {
 }
 
 export default GameFlow
+export type { PlayerMission }
