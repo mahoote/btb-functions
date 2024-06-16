@@ -1,9 +1,9 @@
-import { corsHeaders } from '../_shared/cors.ts'
+import { corsHeaders } from '../_shared/utils/cors.ts'
 import { createErrorResponse } from '../_shared/response.ts'
-import { GamePreferences } from '../_types/gamePreferences.ts'
-import createGameFlow from './create.ts'
+import { GamePreferences } from './types/gamePreferences.ts'
+import createGameFlow from './services/create.ts'
 
-Deno.serve(async (req): Promise<Response> => {
+Deno.serve(async (req: Request): Promise<Response> => {
     const { method } = req
 
     if (method === 'OPTIONS') {

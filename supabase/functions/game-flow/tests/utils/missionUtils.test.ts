@@ -1,10 +1,10 @@
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
-import { PlayerPreference } from '../../_types/gamePreferences.ts'
-import { ActivityEnum, DrunkEnum } from '../../_enums/preferencesEnum.ts'
+import { PlayerPreference } from '../../types/gamePreferences.ts'
+import { ActivityEnum, DrunkEnum } from '../../types/preferencesEnum.ts'
 import {
     createMission,
     getPlayersWithMission,
-} from '../../_utils/missionUtils.ts'
+} from '../../utils/missionUtils.ts'
 
 Deno.test('getPlayersWithMission - should get 1 player id', () => {
     const averages = {
