@@ -4,7 +4,7 @@ type PlayerChallenge = {
 }
 
 type GameFlow = {
-    playerChallenge?: PlayerChallenge[]
+    playerChallenges?: PlayerChallenge[]
     isPlayerCreative: boolean
 }
 
