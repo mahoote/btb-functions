@@ -5,15 +5,15 @@ import {
 import { DrunkEnum } from '../types/preferencesEnum.ts'
 
 /**
- * If the player wants to get more drunk than the average, they will be given a mission.
- * They will also get a mission if they want to get wasted.
+ * If the player wants to get more drunk than the average, they will be given a challenge.
+ * They will also get a challenge if they want to get wasted.
  * @param averages
  * @param preferences
  */
-function getPlayersWithMission(
+function filterPlayerIdsWithChallenge(
     averages: PreferenceAverages,
     preferences: PlayerPreference[]
-) {
+): string[] {
     const avgDrunk = averages.avgDrunk
 
     return preferences
@@ -27,8 +27,4 @@ function getPlayersWithMission(
         .map((preference: PlayerPreference) => preference.player_id)
 }
 
-function createMission() {
-    return 'Mission: Get wasted!'
-}
-
-export { getPlayersWithMission, createMission }
+export { filterPlayerIdsWithChallenge }

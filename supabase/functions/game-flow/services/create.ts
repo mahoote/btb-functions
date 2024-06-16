@@ -1,14 +1,14 @@
 import { createResponse } from '../../_shared/response.ts'
 import { GamePreferences } from '../types/gamePreferences.ts'
 import calculateAverages from '../utils/calculateAverages.ts'
-import { createMission, getPlayersWithMission } from '../utils/missionUtils.ts'
+import { filterPlayerIdsWithChallenge } from '../utils/challengeUtils.ts'
 import GameFlow, { PlayerMission } from '../types/gameFlow.ts'
 
 function setPlayerMissions(playersWithMission: string[]) {
     return playersWithMission.map(
         (playerId): PlayerMission => ({
             playerId,
-            mission: createMission(),
+            mission: 'Get wasted',
         })
     )
 }
@@ -20,7 +20,7 @@ function createGameFlow(preferences: GamePreferences) {
 
     const averages = calculateAverages(preferences.playerPreferences)
 
-    const playersWithMission = getPlayersWithMission(
+    const playersWithMission = filterPlayerIdsWithChallenge(
         averages,
         preferences.playerPreferences
     )
