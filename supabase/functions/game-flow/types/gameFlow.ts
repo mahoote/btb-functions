@@ -1,12 +1,12 @@
-type PlayerMission = {
+type PlayerChallenge = {
     playerId: string
-    mission: string
+    challenge: string
 }
 
 type GameFlow = {
-    playerMissions?: PlayerMission[]
+    playerChallenge?: PlayerChallenge[]
     isPlayerCreative: boolean
 }
 
 export default GameFlow
-export type { PlayerMission }
+export type { PlayerChallenge }

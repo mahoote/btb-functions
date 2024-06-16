@@ -15,7 +15,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
         switch (true) {
             case method === 'POST':
-                return createGameFlow(json as GamePreferences)
+                return await createGameFlow(json as GamePreferences)
             default:
                 return createErrorResponse('Not found', 404)
         }

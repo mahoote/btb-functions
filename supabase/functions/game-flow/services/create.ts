@@ -1,32 +1,40 @@
 import { createResponse } from '../../_shared/response.ts'
 import { GamePreferences } from '../types/gamePreferences.ts'
 import calculateAverages from '../utils/calculateAverages.ts'
-import { createMission, getPlayersWithMission } from '../utils/missionUtils.ts'
-import GameFlow, { PlayerMission } from '../types/gameFlow.ts'
+import { filterPlayerIdsWithChallenge } from '../utils/challengeUtils.ts'
+import GameFlow, { PlayerChallenge } from '../types/gameFlow.ts'
+import { fetchRandomChallenge } from '../repositories/challengeRepository.ts'
 
-function setPlayerMissions(playersWithMission: string[]) {
-    return playersWithMission.map(
-        (playerId): PlayerMission => ({
-            playerId,
-            mission: createMission(),
+async function setPlayerChallenges(
+    playerIds: string[]
+): Promise<PlayerChallenge[]> {
+    return await Promise.all(
+        playerIds.map(async (playerId): Promise<PlayerChallenge> => {
+            const challenge = await fetchRandomChallenge()
+            return {
+                playerId,
+                challenge: challenge.message,
+            }
         })
     )
 }
 
-function createGameFlow(preferences: GamePreferences) {
+async function createGameFlow(preferences: GamePreferences) {
     const gameFlow: GameFlow = {
         isPlayerCreative: preferences.isPlayerCreative,
     }
 
     const averages = calculateAverages(preferences.playerPreferences)
 
-    const playersWithMission = getPlayersWithMission(
+    const playerIdsWithChallenge = filterPlayerIdsWithChallenge(
         averages,
         preferences.playerPreferences
     )
 
-    if (playersWithMission.length > 0 && !preferences.isPlayerCreative) {
-        gameFlow.playerMissions = setPlayerMissions(playersWithMission)
+    if (playerIdsWithChallenge.length > 0 && !preferences.isPlayerCreative) {
+        gameFlow.playerChallenge = await setPlayerChallenges(
+            playerIdsWithChallenge
+        )
     }
 
     // TODO: Fetch games from db. Add a logic for finding games with correct criteria.
