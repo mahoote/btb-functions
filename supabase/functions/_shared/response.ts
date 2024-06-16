@@ -1,4 +1,4 @@
-import { corsHeaders } from './cors.ts'
+import { corsHeaders } from './utils/cors.ts'
 
 function createResponse(body: string, status?: number): Response {
     return new Response(body, {

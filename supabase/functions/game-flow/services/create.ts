@@ -1,8 +1,8 @@
-import { createResponse } from '../_shared/response.ts'
-import { GamePreferences } from '../_types/gamePreferences.ts'
-import calculateAverages from '../_utils/calculateAverages.ts'
-import { createMission, getPlayersWithMission } from '../_utils/missionUtils.ts'
-import GameFlow, { PlayerMission } from '../_types/gameFlow.ts'
+import { createResponse } from '../../_shared/response.ts'
+import { GamePreferences } from '../types/gamePreferences.ts'
+import calculateAverages from '../utils/calculateAverages.ts'
+import { createMission, getPlayersWithMission } from '../utils/missionUtils.ts'
+import GameFlow, { PlayerMission } from '../types/gameFlow.ts'
 
 function setPlayerMissions(playersWithMission: string[]) {
     return playersWithMission.map(

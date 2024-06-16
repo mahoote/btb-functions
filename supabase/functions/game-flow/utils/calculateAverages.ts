@@ -1,7 +1,7 @@
 import {
     PlayerPreference,
     PreferenceAverages,
-} from '../_types/gamePreferences.ts'
+} from '../types/gamePreferences.ts'
 
 /**
  * Based on the threshold that is approximately 0.67, round the average to the nearest enum.

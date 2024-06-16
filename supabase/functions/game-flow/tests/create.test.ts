@@ -1,11 +1,8 @@
-import { ActivityEnum, DrunkEnum } from '../../_enums/preferencesEnum.ts'
-import {
-    GamePreferences,
-    PlayerPreference,
-} from '../../_types/gamePreferences.ts'
-import createGameFlow from '../../game-flow/create.ts'
+import { ActivityEnum, DrunkEnum } from '../types/preferencesEnum.ts'
+import { GamePreferences, PlayerPreference } from '../types/gamePreferences.ts'
+import createGameFlow from '../services/create.ts'
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
-import { Player } from '../../_types/player.ts'
+import { Player } from '../types/player.ts'
 
 Deno.test('should create a game flow', async () => {
     const response = createGameFlow(createGamePreferences())
