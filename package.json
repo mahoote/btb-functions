@@ -6,7 +6,9 @@
   "scripts": {
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "deno test",
+    "test:coverage": "deno test --coverage=cov && deno coverage cov"
   },
   "lint-staged": {
     "**/*.ts": [

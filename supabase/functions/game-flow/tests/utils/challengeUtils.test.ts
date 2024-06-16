@@ -3,7 +3,7 @@ import { PlayerPreference } from '../../types/gamePreferences.ts'
 import { ActivityEnum, DrunkEnum } from '../../types/preferencesEnum.ts'
 import { filterPlayerIdsWithChallenge } from '../../utils/challengeUtils.ts'
 
-Deno.test('getPlayersWithMission - should get 1 player id', () => {
+Deno.test('filterPlayerIdsWithChallenge - should get 1 player id', () => {
     const averages = {
         avgDrunk: 1,
         avgActivity: 1,
@@ -40,8 +40,7 @@ Deno.test('getPlayersWithMission - should get 1 player id', () => {
     assertEquals(result, expectedResult)
 })
 
-/*
-Deno.test('getPlayersWithMission - should get 2 player ids', () => {
+Deno.test('filterPlayerIdsWithChallenge - should get 2 player ids', () => {
     const averages = {
         avgDrunk: 1,
         avgActivity: 0,
@@ -83,7 +82,7 @@ Deno.test('getPlayersWithMission - should get 2 player ids', () => {
     assertEquals(result, expectedResult)
 })
 
-Deno.test('getPlayersWithMission - should get no player ids', () => {
+Deno.test('filterPlayerIdsWithChallenge - should get no player ids', () => {
     const averages = {
         avgDrunk: 1,
         avgActivity: 0,
@@ -110,7 +109,7 @@ Deno.test('getPlayersWithMission - should get no player ids', () => {
     assertEquals(result, expectedResult)
 })
 
-Deno.test('getPlayersWithMission - should get all player ids', () => {
+Deno.test('filterPlayerIdsWithChallenge - should get all player ids', () => {
     const averages = {
         avgDrunk: 2,
         avgActivity: 0,
@@ -133,10 +132,7 @@ Deno.test('getPlayersWithMission - should get all player ids', () => {
 
     const result = filterPlayerIdsWithChallenge(averages, playerPreferences)
 
-    const expectedResult = playerPreferences.map(
-        (preference) => preference.player_id
-    )
+    const expectedResult = playerPreferences.map(preference => preference.player_id)
 
     assertEquals(result, expectedResult)
 })
-*/
