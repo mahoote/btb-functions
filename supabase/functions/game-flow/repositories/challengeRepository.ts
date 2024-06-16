@@ -1,8 +1,9 @@
 import { supabaseClient } from '../../_shared/supabaseClient.ts'
+import { Challenge } from '../types/challenge.ts'
 
-const fetchRandomChallenge = async () => {
+async function fetchRandomChallenge(): Promise<Challenge> {
     const { data, error } = await supabaseClient
-        .from('randomChallenge')
+        .from('random_challenge')
         .select('*')
         .limit(1)
         .single()
@@ -11,7 +12,7 @@ const fetchRandomChallenge = async () => {
         throw error
     }
 
-    return data as string
+    return data as Challenge
 }
 
 export { fetchRandomChallenge }
