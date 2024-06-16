@@ -5,9 +5,7 @@ import { filterPlayerIdsWithChallenge } from '../utils/challengeUtils.ts'
 import GameFlow, { PlayerChallenge } from '../types/gameFlow.ts'
 import { fetchRandomChallenge } from '../repositories/challengeRepository.ts'
 
-async function setPlayerChallenges(
-    playerIds: string[]
-): Promise<PlayerChallenge[]> {
+async function setPlayerChallenges(playerIds: string[]): Promise<PlayerChallenge[]> {
     return await Promise.all(
         playerIds.map(async (playerId): Promise<PlayerChallenge> => {
             const challenge = await fetchRandomChallenge()
@@ -32,9 +30,7 @@ async function createGameFlow(preferences: GamePreferences) {
     )
 
     if (playerIdsWithChallenge.length > 0 && !preferences.isPlayerCreative) {
-        gameFlow.playerChallenge = await setPlayerChallenges(
-            playerIdsWithChallenge
-        )
+        gameFlow.playerChallenge = await setPlayerChallenges(playerIdsWithChallenge)
     }
 
     // TODO: Fetch games from db. Add a logic for finding games with correct criteria.
