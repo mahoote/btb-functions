@@ -2,13 +2,13 @@ import { createResponse } from '../../_shared/response.ts'
 import { GamePreferences } from '../types/gamePreferences.ts'
 import calculateAverages from '../utils/calculateAverages.ts'
 import { filterPlayerIdsWithChallenge } from '../utils/challengeUtils.ts'
-import GameFlow, { PlayerMission } from '../types/gameFlow.ts'
+import GameFlow, { PlayerChallenge } from '../types/gameFlow.ts'
 
-function setPlayerMissions(playersWithMission: string[]) {
-    return playersWithMission.map(
-        (playerId): PlayerMission => ({
+function setPlayerChallenges(playerIds: string[]) {
+    return playerIds.map(
+        (playerId): PlayerChallenge => ({
             playerId,
-            mission: 'Get wasted',
+            challenge: 'Get wasted',
         })
     )
 }
@@ -20,13 +20,13 @@ function createGameFlow(preferences: GamePreferences) {
 
     const averages = calculateAverages(preferences.playerPreferences)
 
-    const playersWithMission = filterPlayerIdsWithChallenge(
+    const playerIdsWithChallenge = filterPlayerIdsWithChallenge(
         averages,
         preferences.playerPreferences
     )
 
-    if (playersWithMission.length > 0 && !preferences.isPlayerCreative) {
-        gameFlow.playerMissions = setPlayerMissions(playersWithMission)
+    if (playerIdsWithChallenge.length > 0 && !preferences.isPlayerCreative) {
+        gameFlow.playerChallenge = setPlayerChallenges(playerIdsWithChallenge)
     }
 
     // TODO: Fetch games from db. Add a logic for finding games with correct criteria.
