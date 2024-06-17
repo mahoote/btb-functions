@@ -8,7 +8,7 @@
     "format": "prettier --write .",
     "prepare": "husky install",
     "test": "deno test",
-    "test:coverage": "deno test --coverage=cov && deno coverage cov"
+    "test:coverage": "deno test --coverage && deno coverage coverage"
   },
   "lint-staged": {
     "**/*.ts": [
