@@ -1,17 +1,21 @@
 import { Challenge } from '../types/challenge.ts'
+import { IChallengeRepository } from '../interfaces/IRepository.ts'
+import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8'
 
-async function fetchRandomChallenge(): Promise<Challenge> {
-    const { data, error } = await globalThis.supabaseClient
-        .from('random_challenge')
-        .select('*')
-        .limit(1)
-        .single()
+export default class ChallengeRepository implements IChallengeRepository {
+    constructor(private supabaseClient: SupabaseClient) {}
 
-    if (error) {
-        throw error
+    public async fetchRandomChallenge(): Promise<Challenge> {
+        const { data, error } = await this.supabaseClient
+            .from('random_challenge')
+            .select('*')
+            .limit(1)
+            .single()
+
+        if (error) {
+            throw new Error(error.message || 'Unknown database error')
+        }
+
+        return data as Challenge
     }
-
-    return data as Challenge
 }
-
-export { fetchRandomChallenge }
