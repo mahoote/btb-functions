@@ -19,15 +19,21 @@ jobs:
         with:
           deno-version: v1.x
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install Dependencies
-        run: deno cache main.ts
+        run: npm ci
+
+      - name: Cache Function Files
+        run: deno cache supabase/functions/**/index.ts
 
       - name: Run Tests with Coverage
-        run: |
-          deno test --coverage=coverage
-          deno coverage coverage --lcov > coverage.lcov
+        run: npm run test:coverage
 
       - name: Upload coverage to Coveralls
         run: |
           npm install -g coveralls
-          cat coverage.lcov | coveralls --repo-token ${{ secrets.COVERALLS_REPO_TOKEN }}
+          cat coverage/lcov.info | coveralls --repo-token ${{ secrets.COVERALLS_REPO_TOKEN }}
