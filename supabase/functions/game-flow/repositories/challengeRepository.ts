@@ -1,6 +1,6 @@
 import { Challenge } from '../types/challenge.ts'
 import { IChallengeRepository } from '../interfaces/IRepository.ts'
-import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1'
+import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8'
 
 export default class ChallengeRepository implements IChallengeRepository {
     constructor(private supabaseClient: SupabaseClient) {}
