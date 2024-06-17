@@ -1,6 +1,5 @@
 name: Deno Test Coverage
 
-# Trigger the workflow on specific types of pull request events
 on:
   pull_request:
     types:
