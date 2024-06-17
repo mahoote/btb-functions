@@ -1,6 +1,5 @@
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import ChallengeRepository from '../../repositories/challengeRepository.ts'
-import '../../../_shared/globals.d.ts'
 import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8'
 import { IChallengeRepository } from '../../interfaces/IRepository.ts'
 
