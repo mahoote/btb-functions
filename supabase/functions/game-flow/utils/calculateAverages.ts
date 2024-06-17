@@ -1,7 +1,4 @@
-import {
-    PlayerPreference,
-    PreferenceAverages,
-} from '../types/gamePreferences.ts'
+import { PlayerPreference, PreferenceAverages } from '../types/gamePreferences.ts'
 
 /**
  * Based on the threshold that is approximately 0.67, round the average to the nearest enum.
@@ -35,21 +32,21 @@ function getAverageMargin(average: number, roundedAverage: number): number {
 
 /**
  * Calculate the average drunk and activity levels from a list of player preferences.
+ * Checks if the inputs are valid. If not, default to 1.
  * @param preferences
  */
-function calculateAverages(
-    preferences: PlayerPreference[]
-): PreferenceAverages {
+function calculateAverages(preferences: PlayerPreference[]): PreferenceAverages {
     if (preferences.length === 0) return { avgDrunk: 0, avgActivity: 0 }
 
-    const totalDrunk: number = preferences.reduce(
-        (sum, preference) => sum + preference.drunk,
-        0
-    )
-    const totalActivity: number = preferences.reduce(
-        (sum, preference) => sum + preference.activity,
-        0
-    )
+    const totalDrunk: number = preferences.reduce((sum, preference) => {
+        const validDrunk = preference.drunk < 0 || preference.drunk > 2 ? 1 : preference.drunk
+        return sum + validDrunk
+    }, 0)
+    const totalActivity: number = preferences.reduce((sum, preference) => {
+        const validActivity =
+            preference.activity < 0 || preference.activity > 2 ? 1 : preference.activity
+        return sum + validActivity
+    }, 0)
 
     const avgDrunk = totalDrunk / preferences.length
     const avgActivity = totalActivity / preferences.length
