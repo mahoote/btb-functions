@@ -1,13 +1,12 @@
 name: Deno Test Coverage
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
+    branches:
+      - main
 
 jobs:
   test:
-    if: github.event.pull_request.merged == true # Only run if the PR is merged
     runs-on: ubuntu-latest
 
     steps:
