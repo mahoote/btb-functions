@@ -4,10 +4,15 @@ import calculateAverages from '../utils/calculateAverages.ts'
 import { filterPlayerIdsWithChallenge } from '../utils/challengeUtils.ts'
 import GameFlow, { PlayerChallenge } from '../types/gameFlow.ts'
 import { IGameFlowService } from '../interfaces/IService.ts'
-import { IChallengeRepository } from '../interfaces/IRepository.ts'
+import { IChallengeRepository, IGameRepository } from '../interfaces/IRepository.ts'
+import { GameCategoryEnum } from '../types/gameEnum.ts'
+import { Challenge } from '../types/challenge.ts'
 
 export default class GameFlowService implements IGameFlowService {
-    constructor(private challengeRepository: IChallengeRepository) {}
+    constructor(
+        private challengeRepository: IChallengeRepository,
+        private gameRepository: IGameRepository
+    ) {}
 
     public async createGameFlow(preferences: GamePreferences): Promise<Response> {
         const gameFlow: GameFlow = {
@@ -36,7 +41,8 @@ export default class GameFlowService implements IGameFlowService {
     public async createPlayerChallenges(playerIds: string[]): Promise<PlayerChallenge[]> {
         return await Promise.all(
             playerIds.map(async (playerId): Promise<PlayerChallenge> => {
-                const challenge = await this.challengeRepository.fetchRandomChallenge()
+                const challenge: Challenge =
+                    await this.challengeRepository.fetchRandomChallenge()
                 return {
                     playerId,
                     challenge: challenge.message,

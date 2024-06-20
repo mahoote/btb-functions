@@ -3,11 +3,14 @@ import { GamePreferences, PlayerPreference } from '../../types/gamePreferences.t
 import { Player } from '../../types/player.ts'
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/assert_equals.ts'
 import GameFlowService from '../../services/gameFlowService.ts'
-import { MockChallengeRepository } from '../mocks/mockRepository.ts'
+import { MockChallengeRepository, MockGameRepository } from '../mocks/mockRepository.ts'
 import { PlayerChallenge } from '../../types/gameFlow.ts'
 
 Deno.test('gameFlowService - should create flow with one playerChallenge', async () => {
-    const gameFlowService = new GameFlowService(new MockChallengeRepository())
+    const gameFlowService = new GameFlowService(
+        new MockChallengeRepository(),
+        new MockGameRepository()
+    )
 
     const response = await gameFlowService.createGameFlow(createGamePreferences())
 
@@ -34,6 +37,7 @@ function createGamePreferences(): GamePreferences {
         playerPreferences: createPlayersPreferences(),
         isPlayerCreative: false,
         gameMinutes: 30,
+        accessories: [],
     }
 }
 
