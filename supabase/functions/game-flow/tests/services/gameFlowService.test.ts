@@ -1,4 +1,4 @@
-import { ActivityEnum, DrunkEnum } from '../../types/preferencesEnum.ts'
+import { ActivityEnum, DrunkEnum } from '../../types/gameEnum.ts'
 import { GamePreferences, PlayerPreference } from '../../types/gamePreferences.ts'
 import { Player } from '../../types/player.ts'
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/assert_equals.ts'

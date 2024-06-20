@@ -1,6 +1,6 @@
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { PlayerPreference } from '../../types/gamePreferences.ts'
-import { ActivityEnum, DrunkEnum } from '../../types/preferencesEnum.ts'
+import { ActivityEnum, DrunkEnum } from '../../types/gameEnum.ts'
 import { filterPlayerIdsWithChallenge } from '../../utils/challengeUtils.ts'
 
 Deno.test('filterPlayerIdsWithChallenge - should get 1 player id', () => {

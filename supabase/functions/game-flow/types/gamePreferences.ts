@@ -1,4 +1,4 @@
-import { ActivityEnum, DrunkEnum } from './preferencesEnum.ts'
+import { ActivityEnum, DrunkEnum } from './gameEnum.ts'
 
 type PlayerPreference = {
     player_id: string
