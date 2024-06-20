@@ -4,7 +4,7 @@ type Game = {
     min_players: number
     max_players?: number
     activity_level?: number
-    alcohol_level?: number
+    drunk_level?: number
     minutes?: number
     game_type_id: number
     player_group_type_id?: number
