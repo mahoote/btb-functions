@@ -39,3 +39,19 @@ insert into player_group_type (id, name)
 values (1, 'Even'),
        (2, 'Odd'),
        (3, 'Pairs');
+
+insert into game_category (id, name)
+values (1, 'Quick Thinking'),
+       (2, 'Skills'),
+       (3, 'Social Interactive'),
+       (4, 'Strategy'),
+       (5, 'Teams'),
+       (6, 'Trivia and Knowledge');
+
+insert into game (id, name, intro_description, descriptions,
+                  min_players, max_players, activity_level,
+                  alcohol_level, minutes, game_type_id,
+                  game_category_id, player_group_type_id)
+values (1, 'Fast Word', null,
+        ARRAY['Each player must quickly say a word related to the previous. For example, if the first word is "beach", the next player could say "sand". No repeating words. If a player hesitates for more than 5 seconds, or repeats a word, they must take a drink.'],
+        3, null, 1, 2, 3, 7, 1, null);
