@@ -1,6 +1,6 @@
 import { IChallengeRepository, IGameRepository } from '../../interfaces/IRepository.ts'
 import { Challenge } from '../../types/challenge.ts'
-import { Game, GameDto } from '../../types/game.ts'
+import { GameDto } from '../../types/game.ts'
 
 export class MockChallengeRepository implements IChallengeRepository {
     async fetchRandomChallenge(): Promise<Challenge> {
