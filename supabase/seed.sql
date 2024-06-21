@@ -376,4 +376,11 @@ values (20, 'Test Game 20',
         2, 2, 2, 2, 5, 6);
 
 
-
+insert into game_has_accessory (game_id, accessory_id)
+values (20, 1),
+       (53, 2),
+       (42, 3),
+       (53, 4),
+       (74, 5),
+       (75, 4),
+       (25, 6);
