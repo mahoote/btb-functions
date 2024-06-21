@@ -1,5 +1,5 @@
 import { Challenge } from '../types/challenge.ts'
-import { Game, GameDto } from '../types/game.ts'
+import { GameDto } from '../types/game.ts'
 import {
     AccessoryEnum,
     ActivityEnum,
