@@ -1,13 +1,13 @@
 enum DrunkEnum {
-    TIPSY = 1,
-    DRUNK = 2,
-    WASTED = 3,
+    TIPSY,
+    DRUNK,
+    WASTED,
 }
 
 enum ActivityEnum {
-    LOW = 1,
-    MEDIUM = 2,
-    HIGH = 3,
+    LOW,
+    MEDIUM,
+    HIGH,
 }
 
 enum GameCategoryEnum {
