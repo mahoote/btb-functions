@@ -40,20 +40,23 @@ function calculateAverages(preferences: PlayerPreference[]): PreferenceAverages 
     if (preferences.length === 0)
         return { avgDrunk: DrunkEnum.TIPSY, avgActivity: ActivityEnum.LOW }
 
-    const totalDrunk: number = preferences.reduce((sum, preference) => {
-        const validDrunk =
-            preference.drunk < DrunkEnum.TIPSY || preference.drunk > DrunkEnum.WASTED
-                ? DrunkEnum.DRUNK
-                : preference.drunk
-        return sum + validDrunk
-    }, 0)
-    const totalActivity: number = preferences.reduce((sum, preference) => {
-        const validActivity =
-            preference.activity < ActivityEnum.LOW || preference.activity > ActivityEnum.HIGH
-                ? ActivityEnum.MEDIUM
-                : preference.activity
-        return sum + validActivity
-    }, 0)
+    const [totalActivity, totalDrunk]: [number, number] = preferences.reduce(
+        (sums, preference): [number, number] => {
+            const validDrunk =
+                preference.drunk < DrunkEnum.TIPSY || preference.drunk > DrunkEnum.WASTED
+                    ? DrunkEnum.DRUNK
+                    : preference.drunk
+
+            const validActivity =
+                preference.activity < ActivityEnum.LOW ||
+                preference.activity > ActivityEnum.HIGH
+                    ? ActivityEnum.MEDIUM
+                    : preference.activity
+
+            return [sums[0] + validActivity, sums[1] + validDrunk]
+        },
+        [0, 0]
+    )
 
     const avgDrunk = totalDrunk / preferences.length
     const avgActivity = totalActivity / preferences.length
