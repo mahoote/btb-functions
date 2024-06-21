@@ -1,5 +1,5 @@
 import { Challenge } from '../types/challenge.ts'
-import { Game } from '../types/game.ts'
+import { Game, GameDto } from '../types/game.ts'
 import {
     AccessoryEnum,
     ActivityEnum,
@@ -19,5 +19,5 @@ export interface IGameRepository {
         audience?: GameAudienceEnum,
         drunkLevel?: DrunkEnum,
         activityLevel?: ActivityEnum
-    ): Promise<Game>
+    ): Promise<GameDto>
 }

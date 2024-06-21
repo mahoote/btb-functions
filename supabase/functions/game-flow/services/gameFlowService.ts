@@ -5,7 +5,7 @@ import { filterPlayerIdsWithChallenge } from '../utils/challengeUtils.ts'
 import GameFlow, { PlayerChallenge } from '../types/gameFlow.ts'
 import { IGameFlowService } from '../interfaces/IService.ts'
 import { IChallengeRepository, IGameRepository } from '../interfaces/IRepository.ts'
-import { GameCategoryEnum } from '../types/gameEnum.ts'
+import { AccessoryEnum, GameCategoryEnum } from '../types/gameEnum.ts'
 import { Challenge } from '../types/challenge.ts'
 
 export default class GameFlowService implements IGameFlowService {
@@ -30,6 +30,16 @@ export default class GameFlowService implements IGameFlowService {
             gameFlow.playerChallenges =
                 await this.createPlayerChallenges(playerIdsWithChallenge)
         }
+
+        // TODO: Update the averages from 0-2 to 1-3.
+
+        const firstGame = await this.gameRepository.fetchGame(
+            GameCategoryEnum.TRIVIA_AND_KNOWLEDGE,
+            [],
+            undefined,
+            averages.avgDrunk,
+            averages.avgActivity
+        )
 
         // TODO: Fetch games from db. Add a logic for finding games with correct criteria.
 
