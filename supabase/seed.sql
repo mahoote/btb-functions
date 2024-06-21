@@ -141,7 +141,7 @@ values (20, 'Test Game 20',
 
        (21, 'Test Game 21',
         ARRAY['This is a test'],
-        4, 0, 0, 3, 2, 1),
+        4, 0, 0, 2, 2, 1),
 
        (22, 'Test Game 22',
         ARRAY['This is a test'],
@@ -149,11 +149,11 @@ values (20, 'Test Game 20',
 
        (23, 'Test Game 23',
         ARRAY['This is a test'],
-        2, 0, 1, 3, 4, 1),
+        2, 0, 1, 5, 4, 1),
 
        (24, 'Test Game 24',
         ARRAY['This is a test'],
-        2, 1, 0, 3, 5, 1),
+        2, 1, 0, 6, 5, 1),
 
        (25, 'Test Game 25',
         ARRAY['This is a test'],
@@ -165,7 +165,7 @@ values (20, 'Test Game 20',
 
        (27, 'Test Game 27',
         ARRAY['This is a test'],
-        2, 2, 0, 3, 5, 1),
+        2, 2, 0, 5, 5, 1),
 
        (28, 'Test Game 28',
         ARRAY['This is a test'],
@@ -181,7 +181,7 @@ values (20, 'Test Game 20',
 
        (31, 'Test Game 31',
         ARRAY['This is a test'],
-        4, 0, 0, 3, 2, 2),
+        4, 0, 0, 5, 2, 2),
 
        (32, 'Test Game 32',
         ARRAY['This is a test'],
@@ -193,7 +193,7 @@ values (20, 'Test Game 20',
 
        (34, 'Test Game 34',
         ARRAY['This is a test'],
-        2, 1, 0, 3, 5, 2),
+        2, 1, 0, 7, 5, 2),
 
        (35, 'Test Game 35',
         ARRAY['This is a test'],
@@ -205,7 +205,7 @@ values (20, 'Test Game 20',
 
        (37, 'Test Game 37',
         ARRAY['This is a test'],
-        2, 2, 0, 3, 5, 2),
+        2, 2, 0, 6, 5, 2),
 
        (38, 'Test Game 38',
         ARRAY['This is a test'],
@@ -217,7 +217,7 @@ values (20, 'Test Game 20',
 
        (40, 'Test Game 40',
         ARRAY['This is a test'],
-        3, 0, 0, 3, 1, 3),
+        3, 0, 0, 6, 1, 3),
 
        (41, 'Test Game 41',
         ARRAY['This is a test'],
@@ -229,7 +229,7 @@ values (20, 'Test Game 20',
 
        (43, 'Test Game 43',
         ARRAY['This is a test'],
-        2, 0, 1, 3, 4, 3),
+        2, 0, 1, 4, 4, 3),
 
        (44, 'Test Game 44',
         ARRAY['This is a test'],
@@ -241,11 +241,11 @@ values (20, 'Test Game 20',
 
        (46, 'Test Game 46',
         ARRAY['This is a test'],
-        2, 1, 2, 3, 5, 3),
+        2, 1, 2, 2, 5, 3),
 
        (47, 'Test Game 47',
         ARRAY['This is a test'],
-        2, 2, 0, 3, 5, 3),
+        2, 2, 0, 1, 5, 3),
 
        (48, 'Test Game 48',
         ARRAY['This is a test'],
@@ -257,19 +257,19 @@ values (20, 'Test Game 20',
 
        (50, 'Test Game 50',
         ARRAY['This is a test'],
-        3, 0, 0, 3, 1, 4),
+        3, 0, 0, 2, 1, 4),
 
        (51, 'Test Game 51',
         ARRAY['This is a test'],
-        4, 0, 0, 3, 2, 4),
+        4, 0, 0, 4, 2, 4),
 
        (52, 'Test Game 52',
         ARRAY['This is a test'],
-        2, 0, 1, 3, 3, 4),
+        2, 0, 1, 5, 3, 4),
 
        (53, 'Test Game 53',
         ARRAY['This is a test'],
-        2, 0, 1, 3, 4, 4),
+        2, 0, 1, 6, 4, 4),
 
        (54, 'Test Game 54',
         ARRAY['This is a test'],
@@ -281,7 +281,7 @@ values (20, 'Test Game 20',
 
        (56, 'Test Game 56',
         ARRAY['This is a test'],
-        2, 1, 2, 3, 5, 4),
+        2, 1, 2, 5, 5, 4),
 
        (57, 'Test Game 57',
         ARRAY['This is a test'],
@@ -289,7 +289,7 @@ values (20, 'Test Game 20',
 
        (58, 'Test Game 58',
         ARRAY['This is a test'],
-        2, 2, 1, 3, 1, 4),
+        2, 2, 1, 5, 1, 4),
 
        (59, 'Test Game 59',
         ARRAY['This is a test'],
@@ -297,11 +297,11 @@ values (20, 'Test Game 20',
 
        (60, 'Test Game 60',
         ARRAY['This is a test'],
-        3, 0, 0, 3, 1, 5),
+        3, 0, 0, 2, 1, 5),
 
        (61, 'Test Game 61',
         ARRAY['This is a test'],
-        4, 0, 0, 3, 2, 5),
+        4, 0, 0, 5, 2, 5),
 
        (62, 'Test Game 62',
         ARRAY['This is a test'],
@@ -309,7 +309,7 @@ values (20, 'Test Game 20',
 
        (63, 'Test Game 63',
         ARRAY['This is a test'],
-        2, 0, 1, 3, 4, 5),
+        2, 0, 1, 5, 4, 5),
 
        (64, 'Test Game 64',
         ARRAY['This is a test'],
@@ -321,7 +321,7 @@ values (20, 'Test Game 20',
 
        (66, 'Test Game 66',
         ARRAY['This is a test'],
-        2, 1, 2, 3, 5, 5),
+        2, 1, 2, 8, 5, 5),
 
        (67, 'Test Game 67',
         ARRAY['This is a test'],
@@ -333,11 +333,11 @@ values (20, 'Test Game 20',
 
        (69, 'Test Game 69',
         ARRAY['This is a test'],
-        2, 2, 2, 3, 5, 5),
+        2, 2, 2, 1, 5, 5),
 
        (70, 'Test Game 70',
         ARRAY['This is a test'],
-        3, 0, 0, 3, 1, 6),
+        3, 0, 0, 2, 1, 6),
 
        (71, 'Test Game 71',
         ARRAY['This is a test'],
@@ -345,15 +345,15 @@ values (20, 'Test Game 20',
 
        (72, 'Test Game 72',
         ARRAY['This is a test'],
-        2, 0, 1, 3, 3, 6),
+        2, 0, 1, 4, 3, 6),
 
        (73, 'Test Game 73',
         ARRAY['This is a test'],
-        2, 0, 1, 3, 4, 6),
+        2, 0, 1, 4, 4, 6),
 
        (74, 'Test Game 74',
         ARRAY['This is a test'],
-        2, 1, 0, 3, 5, 6),
+        2, 1, 0, 6, 5, 6),
 
        (75, 'Test Game 75',
         ARRAY['This is a test'],
@@ -365,7 +365,7 @@ values (20, 'Test Game 20',
 
        (77, 'Test Game 77',
         ARRAY['This is a test'],
-        2, 2, 0, 3, 5, 6),
+        2, 2, 0, 2, 5, 6),
 
        (78, 'Test Game 78',
         ARRAY['This is a test'],
@@ -373,7 +373,7 @@ values (20, 'Test Game 20',
 
        (79, 'Test Game 79',
         ARRAY['This is a test'],
-        2, 2, 2, 3, 5, 6);
+        2, 2, 2, 2, 5, 6);
 
 
 

@@ -17,9 +17,10 @@ export default class GameRepository implements IGameRepository {
         accessories: AccessoryEnum[],
         audience?: GameAudienceEnum,
         drunkLevel?: DrunkEnum,
-        activityLevel?: ActivityEnum
+        activityLevel?: ActivityEnum,
+        maxMinutes?: number
     ): Promise<GameDto> {
-        const { data, error } = await this.supabaseClient
+        let query = this.supabaseClient
             .from('game')
             .select(
                 `*,
@@ -30,6 +31,12 @@ export default class GameRepository implements IGameRepository {
             .is('game_audience_id', audience ?? null)
             .eq('drunk_level', drunkLevel ?? 1)
             .eq('activity_level', activityLevel ?? 1)
+
+        if (maxMinutes) {
+            query = query.lte('minutes', maxMinutes)
+        }
+
+        const { data, error } = await query
 
         if (error) {
             throw new Error(error.message || 'Unknown database error')

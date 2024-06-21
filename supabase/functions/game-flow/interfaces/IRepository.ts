@@ -18,6 +18,7 @@ export interface IGameRepository {
         accessories: AccessoryEnum[],
         audience?: GameAudienceEnum,
         drunkLevel?: DrunkEnum,
-        activityLevel?: ActivityEnum
+        activityLevel?: ActivityEnum,
+        maxMinutes?: number
     ): Promise<GameDto>
 }

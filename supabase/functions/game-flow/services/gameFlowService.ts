@@ -61,21 +61,18 @@ export default class GameFlowService implements IGameFlowService {
         let failedAttempts = 0
         const games: GameDto[] = []
 
-        while (remainingMinutes > 3 && failedAttempts < 3) {
+        while (remainingMinutes > 8 && failedAttempts < 3) {
             const game = await this.gameRepository.fetchGame(
-                GameCategoryEnum.QUICK_THINKING,
+                GameCategoryEnum.STRATEGY,
                 [],
                 undefined,
                 averages.avgDrunk,
-                averages.avgActivity
+                averages.avgActivity,
+                remainingMinutes
             )
 
             if (!game) {
                 failedAttempts++
-                continue
-            }
-
-            if (game.minutes && game.minutes > remainingMinutes) {
                 continue
             }
 
