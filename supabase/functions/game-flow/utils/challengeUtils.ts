@@ -1,8 +1,5 @@
-import {
-    PlayerPreference,
-    PreferenceAverages,
-} from '../types/gamePreferences.ts'
-import { DrunkEnum } from '../types/preferencesEnum.ts'
+import { PlayerPreference, PreferenceAverages } from '../types/gamePreferences.ts'
+import { DrunkEnum } from '../types/gameEnum.ts'
 
 /**
  * If the player wants to get more drunk than the average, they will be given a challenge.
@@ -17,7 +14,7 @@ function filterPlayerIdsWithChallenge(
     const avgDrunk = averages.avgDrunk
 
     return preferences
-        .filter((preference) => {
+        .filter(preference => {
             const drunk = preference.drunk
 
             if (drunk > avgDrunk || drunk === DrunkEnum.WASTED) {

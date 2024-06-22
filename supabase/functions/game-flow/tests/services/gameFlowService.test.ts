@@ -1,13 +1,16 @@
-import { ActivityEnum, DrunkEnum } from '../../types/preferencesEnum.ts'
+import { ActivityEnum, DrunkEnum } from '../../types/gameEnum.ts'
 import { GamePreferences, PlayerPreference } from '../../types/gamePreferences.ts'
 import { Player } from '../../types/player.ts'
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/assert_equals.ts'
 import GameFlowService from '../../services/gameFlowService.ts'
-import { MockChallengeRepository } from '../mocks/mockRepository.ts'
 import { PlayerChallenge } from '../../types/gameFlow.ts'
+import { createMockGame, MockChallengeService, MockGameService } from '../mocks/mockService.ts'
 
-Deno.test('gameFlowService - should create flow with one playerChallenge', async () => {
-    const gameFlowService = new GameFlowService(new MockChallengeRepository())
+Deno.test('gameFlowService - should create a basic flow with a simple outcome', async () => {
+    const gameFlowService = new GameFlowService(
+        new MockChallengeService(),
+        new MockGameService()
+    )
 
     const response = await gameFlowService.createGameFlow(createGamePreferences())
 
@@ -15,9 +18,14 @@ Deno.test('gameFlowService - should create flow with one playerChallenge', async
 
     const expectedResult = {
         isPlayerCreative: false,
+        games: [
+            createMockGame(1, 'Test Game'),
+            createMockGame(2, 'Test Game 2'),
+            createMockGame(3, 'Test Game 3'),
+        ],
         playerChallenges: [
             {
-                challenge: 'Mission: Get wasted!',
+                challenge: 'Test challenge',
                 playerId: '2',
             },
         ] as PlayerChallenge[],
@@ -34,6 +42,7 @@ function createGamePreferences(): GamePreferences {
         playerPreferences: createPlayersPreferences(),
         isPlayerCreative: false,
         gameMinutes: 30,
+        accessories: [],
     }
 }
 

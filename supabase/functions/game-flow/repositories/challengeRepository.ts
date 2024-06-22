@@ -13,7 +13,9 @@ export default class ChallengeRepository implements IChallengeRepository {
             .single()
 
         if (error) {
-            throw new Error(error.message || 'Unknown database error')
+            throw new Error(
+                `Challenge Repository: ${error.message}` || 'Unknown database error'
+            )
         }
 
         return data as Challenge
