@@ -49,31 +49,18 @@ export class MockGameRepository implements IGameRepository {
             case 2:
                 return this.ReturnGameDtoButFailOnCalls1and2(
                     category,
-                    accessories,
-                    audience,
                     drunkLevel,
-                    activityLevel,
-                    maxMinutes
+                    activityLevel
                 )
             default:
-                return this.ReturnGameDto(
-                    category,
-                    accessories,
-                    audience,
-                    drunkLevel,
-                    activityLevel,
-                    maxMinutes
-                )
+                return this.ReturnGameDto(category, drunkLevel, activityLevel)
         }
     }
 
     private async ReturnGameDto(
         category: GameCategoryEnum,
-        accessories: AccessoryEnum[],
-        audience?: GameAudienceEnum,
         drunkLevel?: DrunkEnum,
-        activityLevel?: ActivityEnum,
-        maxMinutes?: number
+        activityLevel?: ActivityEnum
     ): Promise<GameDto> {
         const categoryIndex = category.valueOf()
 
@@ -98,11 +85,8 @@ export class MockGameRepository implements IGameRepository {
 
     private async ReturnGameDtoButFailOnCalls1and2(
         category: GameCategoryEnum,
-        accessories: AccessoryEnum[],
-        audience?: GameAudienceEnum,
         drunkLevel?: DrunkEnum,
-        activityLevel?: ActivityEnum,
-        maxMinutes?: number
+        activityLevel?: ActivityEnum
     ): Promise<GameDto> {
         const categoryIndex = category.valueOf()
 
