@@ -6,6 +6,10 @@ import { Challenge } from '../types/challenge.ts'
 export default class ChallengeService implements IChallengeService {
     constructor(private challengeRepository: IChallengeRepository) {}
 
+    /**
+     * Maps through the list of playerIds and fetches a random challenge for each player.
+     * @param playerIds
+     */
     public async assemblePlayerChallengeList(playerIds: string[]): Promise<PlayerChallenge[]> {
         return await Promise.all(
             playerIds.map(async (playerId): Promise<PlayerChallenge> => {
