@@ -16,34 +16,19 @@ export default class GameService implements IGameService {
         const games: GameDto[] = []
 
         const gameCategoryUsageCount: Map<GameCategoryEnum, number> = new Map()
-        const allGameCategories: GameCategoryEnum[] = [
-            GameCategoryEnum.QUICK_THINKING,
-            GameCategoryEnum.SKILLS,
-            GameCategoryEnum.SOCIAL_INTERACTIVE,
-            GameCategoryEnum.STRATEGY,
-            GameCategoryEnum.TEAMS,
-            GameCategoryEnum.TRIVIA_AND_KNOWLEDGE,
-        ]
+        const allGameCategories: GameCategoryEnum[] = Object.values(GameCategoryEnum).filter(
+            value => typeof value === 'number'
+        ) as GameCategoryEnum[]
 
-        while (remainingMinutes > 8 && failedAttempts < 3) {
+        while (remainingMinutes > 8 && failedAttempts < 10) {
             let currentGameCategory = GameCategoryEnum.SOCIAL_INTERACTIVE
 
-            if (gameCategoryUsageCount.size > 0) {
+            if (gameCategoryUsageCount.size > 0 || failedAttempts > 2) {
                 const categories = this.getCategories(
                     gameCategoryUsageCount,
                     allGameCategories
                 )
                 currentGameCategory = categories[Math.floor(Math.random() * categories.length)]
-
-                gameCategoryUsageCount.set(
-                    currentGameCategory,
-                    (gameCategoryUsageCount.get(currentGameCategory) ?? 0) + 1
-                )
-            } else {
-                gameCategoryUsageCount.set(
-                    currentGameCategory,
-                    (gameCategoryUsageCount.get(currentGameCategory) ?? 0) + 1
-                )
             }
 
             const game = await this.gameRepository.fetchGame(
@@ -60,6 +45,11 @@ export default class GameService implements IGameService {
                 continue
             }
 
+            gameCategoryUsageCount.set(
+                currentGameCategory,
+                (gameCategoryUsageCount.get(currentGameCategory) ?? 0) + 1
+            )
+
             games.push(game)
 
             remainingMinutes -= game.minutes ?? 0
@@ -68,35 +58,38 @@ export default class GameService implements IGameService {
         return games
     }
 
+    /**
+     * Checks the map of counts for game categories and returns a list of potential categories to use.
+     * Will always try to return the categories used the least amount of times.
+     * @param gameCategoryUsageCount
+     * @param allGameCategories
+     * @private
+     */
     private getCategories(
         gameCategoryUsageCount: Map<GameCategoryEnum, number>,
         allGameCategories: GameCategoryEnum[]
     ) {
-        // Step 1: Find categories not in the map
         const categoriesNotInMap = allGameCategories.filter(
             category => !gameCategoryUsageCount.has(category)
         )
 
+        // Make sure all categories are used at least once
         if (categoriesNotInMap.length > 0) {
-            // Return categories not in map
             return categoriesNotInMap
         }
 
-        // Step 2: Find categories with the lowest count
-        const minCount = Math.min(...gameCategoryUsageCount.values())
-        const categoriesWithMinCount = [...gameCategoryUsageCount.entries()]
-            .filter(([category, count]) => count === minCount)
-            .map(([category]) => category)
+        const allCategoryCountsEqual =
+            [...new Set(gameCategoryUsageCount.values())].length === 1
 
-        // Step 3: Check if all counts are equal
-        const allCountsEqual = [...new Set(gameCategoryUsageCount.values())].length === 1
-
-        if (allCountsEqual) {
-            // Return full list of categories
+        if (allCategoryCountsEqual) {
             return allGameCategories
         }
 
+        const lowestUsedCount = Math.min(...gameCategoryUsageCount.values())
+
         // Return categories with the lowest count
-        return categoriesWithMinCount
+        return [...gameCategoryUsageCount.entries()]
+            .filter(([_, count]) => count === lowestUsedCount)
+            .map(([category]) => category)
     }
 }
