@@ -61,6 +61,10 @@ export default class GameService implements IGameService {
             remainingMinutes -= game.minutes ?? 0
         }
 
+        if (failedAttempts >= 10) {
+            throw new Error('Failed to assemble game list')
+        }
+
         return games
     }
 

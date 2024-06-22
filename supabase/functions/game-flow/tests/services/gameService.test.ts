@@ -1,4 +1,4 @@
-import { assertEquals } from 'https://deno.land/std@0.224.0/assert/assert_equals.ts'
+import { assertEquals, assertRejects } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import GameService from '../../services/gameService.ts'
 import { ActivityEnum, DrunkEnum, GameCategoryEnum } from '../../types/gameEnum.ts'
 import { MockGameRepository } from '../mocks/mockRepository.ts'
@@ -53,3 +53,19 @@ Deno.test(
         assertEquals(fetchGameSpy.callCount, gameCategoryIds.length + 2)
     }
 )
+
+Deno.test('assembleGameList - should fail to assemble games', async () => {
+    const gameRepository = new MockGameRepository(3)
+    const gameService = new GameService(gameRepository)
+
+    await assertRejects(
+        async () => {
+            await gameService.assembleGameList(30, {
+                avgDrunk: DrunkEnum.DRUNK,
+                avgActivity: ActivityEnum.MEDIUM,
+            })
+        },
+        Error,
+        'Failed to assemble game list'
+    )
+})

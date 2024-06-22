@@ -44,8 +44,10 @@ export class MockGameRepository implements IGameRepository {
         this._fetchGameCalls++
 
         switch (this._state) {
+            case 3:
+                return undefined!
             case 2:
-                return this.state2(
+                return this.ReturnGameDtoButFailOnCalls1and2(
                     category,
                     accessories,
                     audience,
@@ -54,7 +56,7 @@ export class MockGameRepository implements IGameRepository {
                     maxMinutes
                 )
             default:
-                return this.state1(
+                return this.ReturnGameDto(
                     category,
                     accessories,
                     audience,
@@ -65,7 +67,7 @@ export class MockGameRepository implements IGameRepository {
         }
     }
 
-    private async state1(
+    private async ReturnGameDto(
         category: GameCategoryEnum,
         accessories: AccessoryEnum[],
         audience?: GameAudienceEnum,
@@ -94,7 +96,7 @@ export class MockGameRepository implements IGameRepository {
         }
     }
 
-    private async state2(
+    private async ReturnGameDtoButFailOnCalls1and2(
         category: GameCategoryEnum,
         accessories: AccessoryEnum[],
         audience?: GameAudienceEnum,
