@@ -16,7 +16,12 @@ export class MockChallengeRepository implements IChallengeRepository {
 }
 
 export class MockGameRepository implements IGameRepository {
-    private fetchGameCalls = 0
+    private _fetchGameCalls = 0
+    private _state? = 1
+
+    constructor(state?: number) {
+        this._state = state
+    }
 
     /**
      * Is used to check if the amount of calls to this function is correct.
@@ -36,12 +41,42 @@ export class MockGameRepository implements IGameRepository {
         activityLevel?: ActivityEnum,
         maxMinutes?: number
     ): Promise<GameDto> {
-        this.fetchGameCalls++
+        this._fetchGameCalls++
 
+        switch (this._state) {
+            case 2:
+                return this.state2(
+                    category,
+                    accessories,
+                    audience,
+                    drunkLevel,
+                    activityLevel,
+                    maxMinutes
+                )
+            default:
+                return this.state1(
+                    category,
+                    accessories,
+                    audience,
+                    drunkLevel,
+                    activityLevel,
+                    maxMinutes
+                )
+        }
+    }
+
+    private async state1(
+        category: GameCategoryEnum,
+        accessories: AccessoryEnum[],
+        audience?: GameAudienceEnum,
+        drunkLevel?: DrunkEnum,
+        activityLevel?: ActivityEnum,
+        maxMinutes?: number
+    ): Promise<GameDto> {
         const categoryIndex = category.valueOf()
 
         return {
-            id: this.fetchGameCalls,
+            id: this._fetchGameCalls,
             created_at: '2024-06-01T12:00:00Z',
             min_players: 3,
             activity_level: activityLevel,
@@ -50,7 +85,40 @@ export class MockGameRepository implements IGameRepository {
             game_type_id: 1,
             descriptions: ['This is a test game.'],
             intro_description: 'Coolest test game ever!',
-            name: `Test Game ${this.fetchGameCalls}`,
+            name: `Test Game ${this._fetchGameCalls}`,
+            game_category: {
+                id: categoryIndex,
+                name: GameCategoryEnum[categoryIndex],
+            },
+            game_has_accessory: [],
+        }
+    }
+
+    private async state2(
+        category: GameCategoryEnum,
+        accessories: AccessoryEnum[],
+        audience?: GameAudienceEnum,
+        drunkLevel?: DrunkEnum,
+        activityLevel?: ActivityEnum,
+        maxMinutes?: number
+    ): Promise<GameDto> {
+        const categoryIndex = category.valueOf()
+
+        if (this._fetchGameCalls === 1 || this._fetchGameCalls === 2) {
+            return undefined!
+        }
+
+        return {
+            id: this._fetchGameCalls,
+            created_at: '2024-06-01T12:00:00Z',
+            min_players: 3,
+            activity_level: activityLevel,
+            drunk_level: drunkLevel,
+            minutes: 4,
+            game_type_id: 1,
+            descriptions: ['This is a test game.'],
+            intro_description: 'Coolest test game ever!',
+            name: `Test Game ${this._fetchGameCalls}`,
             game_category: {
                 id: categoryIndex,
                 name: GameCategoryEnum[categoryIndex],

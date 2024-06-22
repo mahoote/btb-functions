@@ -8,6 +8,13 @@ import { getAllCategories } from '../utils/gameUtils.ts'
 export default class GameService implements IGameService {
     constructor(private gameRepository: IGameRepository) {}
 
+    /**
+     * Assembles a list of games based on the total minutes and averages.
+     * Will try to use all categories equally.
+     * Assembles while the remaining minutes are above 8.
+     * @param totalMinutes
+     * @param averages
+     */
     public async assembleGameList(
         totalMinutes: number,
         averages: PreferenceAverages
