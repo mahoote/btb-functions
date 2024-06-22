@@ -3,6 +3,7 @@ import { GameDto } from '../types/game.ts'
 import { GameCategoryEnum } from '../types/gameEnum.ts'
 import { IGameRepository } from '../interfaces/IRepository.ts'
 import { IGameService } from '../interfaces/IService.ts'
+import { getAllCategories } from '../utils/gameUtils.ts'
 
 export default class GameService implements IGameService {
     constructor(private gameRepository: IGameRepository) {}
@@ -16,9 +17,7 @@ export default class GameService implements IGameService {
         const games: GameDto[] = []
 
         const gameCategoryUsageCount: Map<GameCategoryEnum, number> = new Map()
-        const allGameCategories: GameCategoryEnum[] = Object.values(GameCategoryEnum).filter(
-            value => typeof value === 'number'
-        ) as GameCategoryEnum[]
+        const allGameCategories = getAllCategories()
 
         while (remainingMinutes > 8 && failedAttempts < 10) {
             let currentGameCategory = GameCategoryEnum.SOCIAL_INTERACTIVE
