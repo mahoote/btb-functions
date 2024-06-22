@@ -12,6 +12,16 @@ import {
 export default class GameRepository implements IGameRepository {
     constructor(private supabaseClient: SupabaseClient) {}
 
+    /**
+     * Fetch a game from the database that matches the given criteria.
+     * Finally, filters the games by accessory and returns a random game
+     * @param category
+     * @param accessories
+     * @param audience
+     * @param drunkLevel
+     * @param activityLevel
+     * @param maxMinutes
+     */
     public async fetchGame(
         category: GameCategoryEnum,
         accessories: AccessoryEnum[],
