@@ -82,19 +82,17 @@ Deno.test('assembleGameList - should return 3 games per category', async () => {
     )
 
     const gameCategoryIds: GameCategoryEnum[] = games.map(game => game.game_category.id)
+    const categoryOccurrenceCountMap = new Map<number, number>()
 
-    const countMap = new Map<number, number>()
-
-    // Iterate over the second array and count occurrences
     gameCategoryIds.forEach(num => {
-        if (countMap.has(num)) {
-            countMap.set(num, countMap.get(num)! + 1)
+        if (categoryOccurrenceCountMap.has(num)) {
+            categoryOccurrenceCountMap.set(num, categoryOccurrenceCountMap.get(num)! + 1)
         } else {
-            countMap.set(num, 1)
+            categoryOccurrenceCountMap.set(num, 1)
         }
     })
 
-    for (const [num, count] of countMap.entries()) {
+    for (const [num, count] of categoryOccurrenceCountMap.entries()) {
         assertEquals(count, 3, `Number ${num} does not appear 3 times`)
     }
 

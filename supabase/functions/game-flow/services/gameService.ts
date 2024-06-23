@@ -76,8 +76,8 @@ export default class GameService implements IGameService {
         if (failedAttempts >= maxRetries) {
             console.error(
                 `Failed to assemble game list. Failed attempts exceeds max retries.\n
-                Averages: ${JSON.stringify(averages)}.\n
-                Games: ${JSON.stringify(games)}.`
+                Averages: ${JSON.stringify(averages)}\n
+                Games: ${JSON.stringify(games)}`
             )
             throw new Error(`Failed to assemble game list.`)
         }
