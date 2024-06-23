@@ -56,9 +56,9 @@ export default class GameService implements IGameService {
                 continue
             }
 
-            const gameExists = games.some(game => game.id === newGame.id)
+            const gameExistsInFlow = games.some(game => game.id === newGame.id)
 
-            if (gameExists) {
+            if (gameExistsInFlow) {
                 failedAttempts++
                 continue
             }
