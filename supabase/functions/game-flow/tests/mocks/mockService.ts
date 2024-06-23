@@ -17,7 +17,7 @@ export class MockGameService implements IGameService {
 }
 
 export class MockChallengeService implements IChallengeService {
-    public async assemblePlayerChallengeList(playerIds: string[]): Promise<PlayerChallenge[]> {
+    public async assemblePlayerChallengeList(): Promise<PlayerChallenge[]> {
         return [{ playerId: '2', challenge: 'Test challenge' }]
     }
 }
