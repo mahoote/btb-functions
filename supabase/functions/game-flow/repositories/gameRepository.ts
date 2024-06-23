@@ -35,7 +35,8 @@ export default class GameRepository implements IGameRepository {
             .select(
                 `*,
                     game_category(*),
-                    game_has_accessory(*)`
+                    accessories: game_has_accessory!left (id:accessory_id)
+                  `
             )
             .eq('game_category_id', category)
             .is('game_audience_id', audience ?? null)
@@ -55,8 +56,8 @@ export default class GameRepository implements IGameRepository {
         const games = data as GameDto[]
 
         const accessoryFilteredGames = games.filter(game => {
-            return game.game_has_accessory.every(gameAccessory =>
-                accessories.includes(gameAccessory.accessory_id)
+            return game.accessories.every(gameAccessory =>
+                accessories.includes(gameAccessory.id)
             )
         })
 
