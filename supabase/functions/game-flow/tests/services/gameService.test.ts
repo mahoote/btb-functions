@@ -66,14 +66,14 @@ Deno.test(
     }
 )
 
-Deno.test('assembleGameList - should return 2 or 3 games per category', async () => {
+Deno.test('assembleGameList - should return 3 games per category', async () => {
     const gameRepository = new MockGameRepository()
     const gameService = new GameService(gameRepository)
 
     const fetchGameSpy = sinon.spy(gameRepository, 'fetchGame')
 
     const games = await gameService.assembleGameList(
-        60,
+        80,
         {
             avgDrunk: DrunkEnum.DRUNK,
             avgActivity: ActivityEnum.MEDIUM,
@@ -95,12 +95,11 @@ Deno.test('assembleGameList - should return 2 or 3 games per category', async ()
     })
 
     for (const [num, count] of countMap.entries()) {
-        assertGreaterOrEqual(count, 2, `Number ${num} appears less than 2 times`)
-        assertLess(count, 4, `Number ${num} appears more than 3 times`)
+        assertEquals(count, 3, `Number ${num} does not appear 3 times`)
     }
 
-    assertEquals(gameCategoryIds.length, 13)
-    assertEquals(fetchGameSpy.callCount, 13)
+    assertEquals(gameCategoryIds.length, 18)
+    assertEquals(fetchGameSpy.callCount, 18)
 })
 
 Deno.test('assembleGameList - should fail to assemble games', async () => {
