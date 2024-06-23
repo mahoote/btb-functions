@@ -79,7 +79,7 @@ export class MockGameRepository implements IGameRepository {
                 id: categoryIndex,
                 name: GameCategoryEnum[categoryIndex],
             },
-            game_has_accessory: [],
+            accessories: [],
         }
     }
 
@@ -109,7 +109,7 @@ export class MockGameRepository implements IGameRepository {
                 id: categoryIndex,
                 name: GameCategoryEnum[categoryIndex],
             },
-            game_has_accessory: [],
+            accessories: [],
         }
     }
 }

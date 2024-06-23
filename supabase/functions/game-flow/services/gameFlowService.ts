@@ -31,7 +31,8 @@ export default class GameFlowService implements IGameFlowService {
 
         gameFlow.games = await this.gameService.assembleGameList(
             preferences.gameMinutes,
-            averages
+            averages,
+            preferences.accessories
         )
 
         // TODO: Add other stuff like betting and push your luck.
