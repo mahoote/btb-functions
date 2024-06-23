@@ -7,11 +7,11 @@ import {
     DrunkEnum,
     GameCategoryEnum,
 } from '../../types/gameEnum.ts'
-import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
+import { assert, assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { GameDto } from '../../types/game.ts'
 
 Deno.test(
-    'fetchGame - should return game with id 2 when no accessories are provided',
+    'fetchGame - should return game with id 2 or 5 when no accessories are provided',
     async () => {
         const repository: IGameRepository = new GameRepository(
             mockClient as unknown as SupabaseClient
@@ -26,12 +26,12 @@ Deno.test(
             30
         )
 
-        assertEquals(game.id, 2 || 5)
+        assert(game.id === 2 || game.id === 5, `game.id should be 2 or 5, but got ${game.id}`)
     }
 )
 
 /**
- * This test runs 10 times to make sure all the games are returned at some point.
+ * This test runs 20 times to make sure all the games are returned at some point.
  */
 Deno.test('fetchGame - should return a game with accessories', async () => {
     const repository: IGameRepository = new GameRepository(
@@ -40,7 +40,7 @@ Deno.test('fetchGame - should return a game with accessories', async () => {
 
     const games: GameDto[] = []
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
         const game = await repository.fetchGame(
             GameCategoryEnum.SOCIAL_INTERACTIVE,
             [AccessoryEnum.PEN],
@@ -53,6 +53,36 @@ Deno.test('fetchGame - should return a game with accessories', async () => {
     }
 
     const expectedGameIds = [2, 3, 5]
+
+    for (const expectedGameId of expectedGameIds) {
+        assertEquals(
+            games.map(game => game.id).includes(expectedGameId),
+            true,
+            `Game with id ${expectedGameId} not found`
+        )
+    }
+})
+
+Deno.test('fetchGame - should return a game with multiple accessories', async () => {
+    const repository: IGameRepository = new GameRepository(
+        mockClient as unknown as SupabaseClient
+    )
+
+    const games: GameDto[] = []
+
+    for (let i = 0; i < 20; i++) {
+        const game = await repository.fetchGame(
+            GameCategoryEnum.SOCIAL_INTERACTIVE,
+            [AccessoryEnum.PEN, AccessoryEnum.PAPER],
+            undefined,
+            DrunkEnum.DRUNK,
+            ActivityEnum.MEDIUM,
+            30
+        )
+        games.push(game)
+    }
+
+    const expectedGameIds = [2, 3, 4, 5, 6]
 
     for (const expectedGameId of expectedGameIds) {
         assertEquals(

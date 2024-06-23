@@ -55,7 +55,7 @@ export default class GameRepository implements IGameRepository {
 
         const games = data as GameDto[]
 
-        const accessoryFilteredGames = games.filter(game => {
+        const accessoryFilteredGames: GameDto[] = games.filter(game => {
             return game.accessories.every(gameAccessory =>
                 accessories.includes(gameAccessory.id)
             )
