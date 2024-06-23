@@ -3,7 +3,7 @@ import { GameDto } from '../types/game.ts'
 import { AccessoryEnum, GameCategoryEnum } from '../types/gameEnum.ts'
 import { IGameRepository } from '../interfaces/IRepository.ts'
 import { IGameService } from '../interfaces/IService.ts'
-import { getAllCategories } from '../utils/gameUtils.ts'
+import { getAllCategories, getAveragesWithChanceForMargin } from '../utils/gameUtils.ts'
 
 export default class GameService implements IGameService {
     constructor(private gameRepository: IGameRepository) {}
@@ -23,12 +23,13 @@ export default class GameService implements IGameService {
     ): Promise<GameDto[]> {
         let remainingMinutes = totalMinutes
         let failedAttempts = 0
-        const games: GameDto[] = []
+        const maxRetries = 10
 
+        const games: GameDto[] = []
         const gameCategoryUsageCount: Map<GameCategoryEnum, number> = new Map()
         const allGameCategories = getAllCategories()
 
-        while (remainingMinutes > 8 && failedAttempts < 10) {
+        while (remainingMinutes > 8 && failedAttempts < maxRetries) {
             let currentGameCategory = GameCategoryEnum.SOCIAL_INTERACTIVE
 
             if (gameCategoryUsageCount.size > 0 || failedAttempts > 2) {
@@ -39,32 +40,46 @@ export default class GameService implements IGameService {
                 currentGameCategory = categories[Math.floor(Math.random() * categories.length)]
             }
 
-            const game = await this.gameRepository.fetchGame(
+            const [avgDrunk, avgActivity] = getAveragesWithChanceForMargin(averages)
+
+            const newGame = await this.gameRepository.fetchGame(
                 currentGameCategory,
                 accessories,
                 undefined,
-                averages.avgDrunk,
-                averages.avgActivity,
+                avgDrunk,
+                avgActivity,
                 remainingMinutes
             )
 
-            if (!game) {
+            if (!newGame) {
                 failedAttempts++
                 continue
             }
+
+            const gameExistsInFlow = games.some(game => game.id === newGame.id)
+
+            if (gameExistsInFlow) {
+                failedAttempts++
+                continue
+            }
+
+            games.push(newGame)
 
             gameCategoryUsageCount.set(
                 currentGameCategory,
                 (gameCategoryUsageCount.get(currentGameCategory) ?? 0) + 1
             )
 
-            games.push(game)
-
-            remainingMinutes -= game.minutes ?? 0
+            remainingMinutes -= newGame.minutes ?? 0
         }
 
-        if (failedAttempts >= 10) {
-            throw new Error('Failed to assemble game list')
+        if (failedAttempts >= maxRetries) {
+            console.error(
+                `Failed to assemble game list. Failed attempts exceeds max retries.\n
+                Averages: ${JSON.stringify(averages)}\n
+                Games: ${JSON.stringify(games)}`
+            )
+            throw new Error(`Failed to assemble game list.`)
         }
 
         return games
