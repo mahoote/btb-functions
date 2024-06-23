@@ -1,6 +1,6 @@
 import { PreferenceAverages } from '../types/gamePreferences.ts'
 import { GameDto } from '../types/game.ts'
-import { GameCategoryEnum } from '../types/gameEnum.ts'
+import { AccessoryEnum, GameCategoryEnum } from '../types/gameEnum.ts'
 import { IGameRepository } from '../interfaces/IRepository.ts'
 import { IGameService } from '../interfaces/IService.ts'
 import { getAllCategories } from '../utils/gameUtils.ts'
@@ -17,7 +17,8 @@ export default class GameService implements IGameService {
      */
     public async assembleGameList(
         totalMinutes: number,
-        averages: PreferenceAverages
+        averages: PreferenceAverages,
+        accessories: AccessoryEnum[]
     ): Promise<GameDto[]> {
         let remainingMinutes = totalMinutes
         let failedAttempts = 0
@@ -39,7 +40,7 @@ export default class GameService implements IGameService {
 
             const game = await this.gameRepository.fetchGame(
                 currentGameCategory,
-                [],
+                accessories,
                 undefined,
                 averages.avgDrunk,
                 averages.avgActivity,
