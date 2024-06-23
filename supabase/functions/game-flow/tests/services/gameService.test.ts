@@ -78,6 +78,6 @@ Deno.test('assembleGameList - should fail to assemble games', async () => {
             )
         },
         Error,
-        'Failed to assemble game list'
+        'Failed to assemble game list.'
     )
 })
