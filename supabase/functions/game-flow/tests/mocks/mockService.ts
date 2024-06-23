@@ -35,6 +35,6 @@ export function createMockGame(id: number, name: string) {
         intro_description: 'Coolest test game ever!',
         name,
         game_category: { id: 2, name: 'Skills' },
-        game_has_accessory: [],
+        accessories: [],
     }
 }
