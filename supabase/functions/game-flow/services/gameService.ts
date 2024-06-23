@@ -14,6 +14,7 @@ export default class GameService implements IGameService {
      * Assembles while the remaining minutes are above 8.
      * @param totalMinutes
      * @param averages
+     * @param accessories
      */
     public async assembleGameList(
         totalMinutes: number,

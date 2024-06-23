@@ -11,10 +11,14 @@ Deno.test('assembleGameList - should return 1 game per category', async () => {
 
     const fetchGameSpy = sinon.spy(gameRepository, 'fetchGame')
 
-    const games = await gameService.assembleGameList(30, {
-        avgDrunk: DrunkEnum.DRUNK,
-        avgActivity: ActivityEnum.MEDIUM,
-    })
+    const games = await gameService.assembleGameList(
+        30,
+        {
+            avgDrunk: DrunkEnum.DRUNK,
+            avgActivity: ActivityEnum.MEDIUM,
+        },
+        []
+    )
 
     const allGameCategoriesSorted = getAllCategories().sort((a, b) => a - b)
     const gameCategoryIds: GameCategoryEnum[] = games.map(game => game.game_category.id)
@@ -36,10 +40,14 @@ Deno.test(
 
         const fetchGameSpy = sinon.spy(gameRepository, 'fetchGame')
 
-        const games = await gameService.assembleGameList(30, {
-            avgDrunk: DrunkEnum.DRUNK,
-            avgActivity: ActivityEnum.MEDIUM,
-        })
+        const games = await gameService.assembleGameList(
+            30,
+            {
+                avgDrunk: DrunkEnum.DRUNK,
+                avgActivity: ActivityEnum.MEDIUM,
+            },
+            []
+        )
 
         const allGameCategoriesSorted = getAllCategories().sort((a, b) => a - b)
         const gameCategoryIds: GameCategoryEnum[] = games.map(game => game.game_category.id)
@@ -60,10 +68,14 @@ Deno.test('assembleGameList - should fail to assemble games', async () => {
 
     await assertRejects(
         async () => {
-            await gameService.assembleGameList(30, {
-                avgDrunk: DrunkEnum.DRUNK,
-                avgActivity: ActivityEnum.MEDIUM,
-            })
+            await gameService.assembleGameList(
+                30,
+                {
+                    avgDrunk: DrunkEnum.DRUNK,
+                    avgActivity: ActivityEnum.MEDIUM,
+                },
+                []
+            )
         },
         Error,
         'Failed to assemble game list'
