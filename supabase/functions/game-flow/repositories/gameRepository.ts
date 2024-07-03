@@ -35,7 +35,8 @@ export default class GameRepository implements IGameRepository {
             .select(
                 `*,
                     game_category(*),
-                    accessories: game_has_accessory!left (id:accessory_id)
+                    accessories: game_has_accessory!left (id:accessory_id),
+                    game_types: game_has_game_type!left (id:game_type_id)
                   `
             )
             .eq('game_category_id', category)
