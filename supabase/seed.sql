@@ -23,6 +23,8 @@ values (1, 'Finish'),
        (8, 'Teams'),
        (9, 'Writing');
 
+SELECT setval('game_type_id_seq', (SELECT MAX(id) FROM game_type));
+
 insert into accessory (id, name)
 values (1, 'Paper'),
        (2, 'Pen'),
@@ -34,10 +36,14 @@ values (1, 'Paper'),
        (8, 'Chairs'),
        (9, 'Music');
 
+SELECT setval('accessory_id_seq', (SELECT MAX(id) FROM accessory));
+
 insert into player_group_type (id, name)
 values (1, 'Even'),
        (2, 'Odd'),
        (3, 'Pairs');
+
+SELECT setval('player_group_type_id_seq', (SELECT MAX(id) FROM player_group_type));
 
 insert into game_category (id, name)
 values (1, 'Quick Thinking'),
@@ -47,9 +53,13 @@ values (1, 'Quick Thinking'),
        (5, 'Teams'),
        (6, 'Trivia and Knowledge');
 
+SELECT setval('game_category_id_seq', (SELECT MAX(id) FROM game_category));
+
 insert into game_audience (id, name)
 values (1, 'Friends'),
        (2, 'Strangers');
+
+SELECT setval('game_audience_id_seq', (SELECT MAX(id) FROM game_audience));
 
 insert into game (id, name, intro_description,
                   descriptions,
@@ -375,6 +385,7 @@ values (20, 'Test Game 20',
         ARRAY['This is a test'],
         2, 2, 2, 2, 5, 6);
 
+SELECT setval('game_id_seq', (SELECT MAX(id) FROM game));
 
 insert into game_has_accessory (game_id, accessory_id)
 values (20, 1),
