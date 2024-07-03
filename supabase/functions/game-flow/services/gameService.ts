@@ -51,14 +51,9 @@ export default class GameService implements IGameService {
                 remainingMinutes
             )
 
-            if (!newGame) {
-                failedAttempts++
-                continue
-            }
-
             const gameExistsInFlow = games.some(game => game.id === newGame.id)
 
-            if (gameExistsInFlow) {
+            if (!newGame || gameExistsInFlow) {
                 failedAttempts++
                 continue
             }

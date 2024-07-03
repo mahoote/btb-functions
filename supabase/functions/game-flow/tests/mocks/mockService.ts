@@ -30,7 +30,7 @@ export function createMockGame(id: number, name: string) {
         activity_level: 2,
         drunk_level: 2,
         minutes: 3,
-        game_type_id: 1,
+        game_types: [{ id: 1 }],
         descriptions: ['This is a test game.'],
         intro_description: 'Coolest test game ever!',
         name,
