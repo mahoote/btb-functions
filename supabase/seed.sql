@@ -77,6 +77,21 @@ values (1, 'Friends'),
 
 SELECT setval('game_audience_id_seq', (SELECT MAX(id) FROM game_audience));
 
+insert into action_card_state (id, name)
+values (1, 'All get same cards'),
+       (2, 'All get different cards'),
+       (3, 'Some get different cards'),
+       (4, 'Random player get card'),
+       (5, 'One player get cards');
+
+SELECT setval('action_card_state_id_seq', (SELECT MAX(id) FROM action_card_state));
+
+insert into action_card_content_type (id, name)
+values (1, 'Word'),
+       (2, 'Sentence');
+
+SELECT setval('action_card_content_type_id_seq', (SELECT MAX(id) FROM action_card_content_type));
+
 insert into game (id, name, intro_description,
                   descriptions,
                   min_players, max_players, activity_level, drunk_level, minutes, game_category_id, player_group_type_id, game_audience_id)
