@@ -86,12 +86,6 @@ values (1, 'All get same cards'),
 
 SELECT setval('action_card_state_id_seq', (SELECT MAX(id) FROM action_card_state));
 
-insert into action_card_content_type (id, name)
-values (1, 'Word'),
-       (2, 'Sentence');
-
-SELECT setval('action_card_content_type_id_seq', (SELECT MAX(id) FROM action_card_content_type));
-
 insert into game (id, name, intro_description,
                   descriptions,
                   min_players, max_players, activity_level, drunk_level, minutes, game_category_id, player_group_type_id, game_audience_id)
