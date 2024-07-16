@@ -12,8 +12,7 @@ jobs:
     timeout-minutes: 3
 
     env:
-      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-      PROJECT_ID: wvinsypeiprpjmofuamy
+      DATABASE_URL: ${{ secrets.SUPABASE_DATABASE_URL }}
 
     steps:
       - uses: actions/checkout@v3
@@ -22,4 +21,4 @@ jobs:
         with:
           version: latest
 
-      - run: supabase db push --project-ref $PROJECT_ID
+      - run: supabase db push --db-url $DATABASE_URL
