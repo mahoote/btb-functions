@@ -9,7 +9,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 1
 
     env:
       DATABASE_URL: ${{ secrets.SUPABASE_DATABASE_URL }}
