@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS "public"."game" (
     "min_players" smallint DEFAULT '2'::smallint NOT NULL,
     "max_players" smallint,
     "activity_level" smallint DEFAULT '0'::smallint NOT NULL,
-    "minutes" smallint DEFAULT '0'::smallint NOT NULL,
+    "minutes" smallint DEFAULT '1'::smallint NOT NULL,
     "player_group_type_id" smallint,
     "game_category_id" smallint NOT NULL,
     "descriptions" "text"[] NOT NULL,
