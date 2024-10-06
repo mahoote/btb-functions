@@ -137,7 +137,7 @@ Deno.test(
             []
         )
 
-        const sumMinutes = games.reduce((acc, game) => acc + (game?.minutes ?? 0), 0)
+        const sumMinutes = games.reduce((acc, game) => acc + game?.minutes, 0)
 
         assertGreaterOrEqual(sumMinutes, totalMinutes - 8)
         assertLess(sumMinutes, totalMinutes - 4)

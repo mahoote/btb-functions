@@ -70,7 +70,7 @@ export default class GameService implements IGameService {
                 (gameCategoryUsageCount.get(currentGameCategory) ?? 0) + 1
             )
 
-            remainingMinutes -= newGame.minutes ?? 0
+            remainingMinutes -= newGame.minutes
         }
 
         if (failedAttempts >= maxRetries) {
