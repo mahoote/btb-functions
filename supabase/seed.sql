@@ -29,15 +29,9 @@ values ('Hver gang noen skåler, må du rope "Skål!" høyere enn alle andre.'),
        ('Bruk et tilfeldig fremmedord i samtalene dine minst tre ganger i løpet av kvelden.');
 
 insert into game_type (id, name)
-values (1, 'Finish'),
-       (2, 'Forfeit'),
-       (3, 'Timed'),
-       (4, 'Vote'),
-       (5, 'Buzzer'),
-       (6, 'Action Card'),
-       (7, 'Word Prompt'),
-       (8, 'Teams'),
-       (9, 'Writing');
+values (1, 'Action Card'),
+       (2, 'Teams'),
+       (3, 'Writing');
 
 SELECT setval('game_type_id_seq', (SELECT MAX(id) FROM game_type));
 
@@ -66,8 +60,7 @@ values (1, 'Quick Thinking'),
        (2, 'Skills'),
        (3, 'Social Interactive'),
        (4, 'Strategy'),
-       (5, 'Teams'),
-       (6, 'Trivia and Knowledge');
+       (5, 'Trivia and Knowledge');
 
 SELECT setval('game_category_id_seq', (SELECT MAX(id) FROM game_category));
 
@@ -137,19 +130,19 @@ values (1, 'Fast Word', null,
 
        (12, 'Duo Charades', null,
         ARRAY['Players team up in pairs. Act out a word or phrase without speaking while others guess. The twist: one person can only use their voice, the other only their body. If a team can''t get others to guess in time, they both drink. The game is over when the time is up.'],
-        6, null, 2, 2, 8, 5, 1, null),
+        6, null, 2, 2, 8, 1, 1, null),
 
        (13, 'Trust Your Teammate', null,
         ARRAY['Players team up in pairs. One player is blindfolded, and the other player guides them using only verbal instructions. Each team has a different item they must find in the room (assigned by another team). The blindfolded player must find the item and bring it back to the start. The first team to do it wins, and the other teams must chug.'],
-        4, null, 2, 1, 4, 5, 1, null),
+        4, null, 2, 1, 4, 1, 1, null),
 
        (14, 'Seven Wonders of the World', null,
         ARRAY['The host gets a list of the seven wonders of the world. Then a player tries to name a wonder, before passing it on to the next. This continues in rapid succession. If a player repeats a wonder, names something that isn''t one of the seven wonders, or fails to name anything, they must take a drink. The game continues until all seven wonders of the world is named.'],
-        8, 8, 1, 0, 5, 6, null, null),
+        8, 8, 1, 0, 5, 5, null, null),
 
        (15, 'Puzzled Pints', null,
         ARRAY['Players must answer trivia questions with a setup similar to musical chairs. The player who cannot find a seat when the music stops must drink and then answer a trivia question. If they answer correctly, they can rejoin the game. If they answer incorrectly, they are out. The game is over when one player remains.'],
-        4, null, 2, 2, 5, 6, null, null);
+        4, null, 2, 2, 5, 5, null, null);
 
 insert into game_has_accessory (game_id, accessory_id)
 values (4, 1),
@@ -165,21 +158,15 @@ values (4, 1),
        (15, 9);
 
 insert into game_has_game_type (game_id, game_type_id)
-values (1, 7),
-       (2, 2),
-       (3, 6),
-       (4, 6),
-       (5, 3),
-       (6, 3),
-       (7, 3),
-       (8, 4),
-       (9, 5),
-       (10, 3),
-       (11, 6),
-       (12, 6),
-       (13, 3),
-       (14, 7),
-       (15, 6);
+values (1, 1),
+       (3, 1),
+       (4, 1),
+       (9, 1),
+       (10, 2),
+       (11, 1),
+       (12, 2),
+       (13, 1),
+       (15, 1);
 
 
 -- Insert dummy games
@@ -389,43 +376,43 @@ values (20, 'Test Game 20',
 
        (70, 'Test Game 70',
         ARRAY['This is a test'],
-        3, 0, 0, 2, 6),
+        3, 0, 0, 2, 1),
 
        (71, 'Test Game 71',
         ARRAY['This is a test'],
-        4, 0, 0, 3, 6),
+        4, 0, 0, 3, 2),
 
        (72, 'Test Game 72',
         ARRAY['This is a test'],
-        null, 0, 1, 4, 6),
+        null, 0, 1, 4, 3),
 
        (73, 'Test Game 73',
         ARRAY['This is a test'],
-        null, 0, 1, 4, 6),
+        null, 0, 1, 4, 4),
 
        (74, 'Test Game 74',
         ARRAY['This is a test'],
-        null, 1, 0, 6, 6),
+        null, 1, 0, 6, 5),
 
        (75, 'Test Game 75',
         ARRAY['This is a test'],
-        null, 0, 1, 3, 6),
+        null, 0, 1, 3, 1),
 
        (76, 'Test Game 76',
         ARRAY['This is a test'],
-        null, 1, 2, 3, 6),
+        null, 1, 2, 3, 2),
 
        (77, 'Test Game 77',
         ARRAY['This is a test'],
-        null, 2, 0, 2, 6),
+        null, 2, 0, 2, 3),
 
        (78, 'Test Game 78',
         ARRAY['This is a test'],
-        null, 2, 1, 3, 6),
+        null, 2, 1, 3, 4),
 
        (79, 'Test Game 79',
         ARRAY['This is a test'],
-        null, 2, 2, 2, 6);
+        null, 2, 2, 2, 5);
 
 SELECT setval('game_id_seq', (SELECT MAX(id) FROM game));
 
@@ -439,63 +426,39 @@ values (20, 1),
        (25, 6);
 
 insert into game_has_game_type (game_id, game_type_id)
-values (20, 1),
-       (21, 2),
-       (22, 3),
-       (23, 4),
-       (24, 5),
-       (25, 1),
-       (26, 5),
-       (27, 5),
-       (28, 1),
-       (29, 5),
-       (30, 1),
-       (31, 2),
-       (32, 3),
-       (33, 4),
-       (34, 5),
-       (35, 1),
-       (36, 5),
-       (37, 5),
-       (38, 1),
-       (39, 5),
-       (40, 1),
-       (41, 2),
-       (42, 3),
-       (43, 4),
-       (44, 5),
-       (45, 1),
-       (46, 5),
-       (47, 5),
-       (48, 1),
-       (49, 5),
-       (50, 1),
-       (51, 2),
-       (52, 3),
-       (53, 4),
-       (54, 5),
-       (55, 1),
-       (56, 5),
-       (57, 5),
-       (58, 1),
-       (59, 5),
-       (60, 1),
-       (61, 2),
-       (62, 3),
-       (63, 4),
-       (64, 5),
-       (65, 1),
-       (66, 5),
-       (67, 5),
-       (68, 1),
-       (69, 5),
-       (70, 1),
-       (71, 2),
-       (72, 3),
-       (73, 4),
-       (74, 5),
-       (75, 1),
-       (76, 5),
-       (77, 5),
-       (78, 1),
-       (79, 5);
+values (22, 1),
+       (23, 2),
+       (24, 3),
+       (26, 3),
+       (27, 3),
+       (29, 3),
+       (32, 1),
+       (33, 2),
+       (34, 3),
+       (36, 3),
+       (37, 3),
+       (39, 3),
+       (42, 1),
+       (43, 2),
+       (44, 3),
+       (46, 3),
+       (47, 3),
+       (49, 3),
+       (52, 1),
+       (53, 2),
+       (54, 3),
+       (56, 3),
+       (57, 3),
+       (59, 3),
+       (62, 1),
+       (63, 2),
+       (64, 3),
+       (66, 3),
+       (67, 3),
+       (69, 3),
+       (72, 1),
+       (73, 2),
+       (74, 3),
+       (76, 3),
+       (77, 3),
+       (79, 3);
