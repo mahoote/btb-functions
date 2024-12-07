@@ -12,14 +12,14 @@ VALUES
      '2024-07-03 17:07:50.48819+00', '2024-07-03 17:07:50.496082+00',
      NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL);
 
-insert into game_type (id, name)
+insert into game.game_type (id, name)
 values (1, 'Action Card'),
        (2, 'Teams'),
        (3, 'Writing');
 
-SELECT setval('game_type_id_seq', (SELECT MAX(id) FROM game_type));
+SELECT setval('game.game_type_id_seq', (SELECT MAX(id) FROM game.game_type));
 
-insert into accessory (id, name)
+insert into game.accessory (id, name)
 values (1, 'Paper'),
        (2, 'Pen'),
        (3, 'Blindfold'),
@@ -30,35 +30,35 @@ values (1, 'Paper'),
        (8, 'Chairs'),
        (9, 'Music');
 
-SELECT setval('accessory_id_seq', (SELECT MAX(id) FROM accessory));
+SELECT setval('game.accessory_id_seq', (SELECT MAX(id) FROM game.accessory));
 
-insert into player_group_type (id, name)
+insert into game.player_group_type (id, name)
 values (1, 'Even'),
        (2, 'Odd'),
        (3, 'Pairs');
 
-SELECT setval('player_group_type_id_seq', (SELECT MAX(id) FROM player_group_type));
+SELECT setval('game.player_group_type_id_seq', (SELECT MAX(id) FROM game.player_group_type));
 
-insert into game_category (id, name)
+insert into game.game_category (id, name)
 values (1, 'Quick Thinking'),
        (2, 'Skills'),
        (3, 'Social Interactive'),
        (4, 'Strategy'),
        (5, 'Trivia and Knowledge');
 
-SELECT setval('game_category_id_seq', (SELECT MAX(id) FROM game_category));
+SELECT setval('game.game_category_id_seq', (SELECT MAX(id) FROM game.game_category));
 
-insert into game_audience (id, name)
+insert into game.game_audience (id, name)
 values (1, 'Friends'),
        (2, 'Strangers');
 
-SELECT setval('game_audience_id_seq', (SELECT MAX(id) FROM game_audience));
+SELECT setval('game.game_audience_id_seq', (SELECT MAX(id) FROM game.game_audience));
 
-insert into action_card_state (id, name)
+insert into game.action_card_state (id, name)
 values (1, 'All get same cards'),
        (2, 'All get different cards'),
        (3, 'Some get different cards'),
        (4, 'Random player get card'),
        (5, 'One player get cards');
 
-SELECT setval('action_card_state_id_seq', (SELECT MAX(id) FROM action_card_state));
+SELECT setval('game.action_card_state_id_seq', (SELECT MAX(id) FROM game.action_card_state));
