@@ -19,19 +19,6 @@ values (1, 'Action Card'),
 
 SELECT setval('game.game_type_id_seq', (SELECT MAX(id) FROM game.game_type));
 
-insert into game.accessory (id, name)
-values (1, 'Paper'),
-       (2, 'Pen'),
-       (3, 'Blindfold'),
-       (4, 'Shot glass'),
-       (5, 'Ping pong ball'),
-       (6, 'Cups'),
-       (7, 'Random items'),
-       (8, 'Chairs'),
-       (9, 'Music');
-
-SELECT setval('game.accessory_id_seq', (SELECT MAX(id) FROM game.accessory));
-
 insert into game.player_group_type (id, name)
 values (1, 'Even'),
        (2, 'Odd'),
