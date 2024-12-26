@@ -19,13 +19,6 @@ values (1, 'Action Card'),
 
 SELECT setval('game.game_type_id_seq', (SELECT MAX(id) FROM game.game_type));
 
-insert into game.player_group_type (id, name)
-values (1, 'Even'),
-       (2, 'Odd'),
-       (3, 'Pairs');
-
-SELECT setval('game.player_group_type_id_seq', (SELECT MAX(id) FROM game.player_group_type));
-
 insert into game.game_category (id, name)
 values (1, 'Quick Thinking'),
        (2, 'Skills'),
