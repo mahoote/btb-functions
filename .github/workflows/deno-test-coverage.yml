@@ -1,39 +1,39 @@
 name: Deno Test Coverage
 
 on:
-  push:
-    branches:
-      - main
+    push:
+        branches:
+            - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
+    test:
+        runs-on: ubuntu-latest
+        timeout-minutes: 3
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: v1.x
+            - name: Setup Deno
+              uses: denoland/setup-deno@v1
+              with:
+                  deno-version: v1.x
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
 
-      - name: Cache Function Files
-        run: deno cache supabase/functions/**/index.ts
+            - name: Cache Function Files
+              run: deno cache supabase/functions/**/index.ts
 
-      - name: Run Tests with Coverage
-        run: |
-          deno test --coverage=coverage
-          deno coverage coverage --lcov > coverage/lcov.info
+            - name: Run Tests with Coverage
+              run: |
+                  deno test --coverage=coverage
+                  deno coverage coverage --lcov > coverage/lcov.info
 
-      - name: Upload coverage to Coveralls
-        uses: coverallsapp/github-action@v2.3.0
-        with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
-          path-to-lcov: coverage/lcov.info
+            - name: Upload coverage to Coveralls
+              uses: coverallsapp/github-action@v2.3.0
+              with:
+                  github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+                  path-to-lcov: coverage/lcov.info
