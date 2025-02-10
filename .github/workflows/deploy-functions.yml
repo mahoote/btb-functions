@@ -1,25 +1,25 @@
 name: Deploy Functions
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
+    deploy:
+        runs-on: ubuntu-latest
+        timeout-minutes: 3
 
-    env:
-      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-      PROJECT_ID: wvinsypeiprpjmofuamy
+        env:
+            SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+            PROJECT_ID: wvinsypeiprpjmofuamy
 
-    steps:
-      - uses: actions/checkout@v3
+        steps:
+            - uses: actions/checkout@v3
 
-      - uses: supabase/setup-cli@v1
-        with:
-          version: latest
+            - uses: supabase/setup-cli@v1
+              with:
+                  version: latest
 
-      - run: supabase functions deploy --project-ref $PROJECT_ID
+            - run: supabase functions deploy --project-ref $PROJECT_ID

@@ -1,28 +1,28 @@
 {
-  "name": "btb-functions",
-  "version": "0.0.1",
-  "description": "A simple example of using Edge Functions",
-  "private": true,
-  "scripts": {
-    "lint": "eslint . --ext .ts",
-    "format": "prettier --write .",
-    "prepare": "husky install",
-    "test": "deno test",
-    "test:coverage": "deno test --coverage && deno coverage coverage"
-  },
-  "lint-staged": {
-    "**/*.ts": [
-      "eslint --fix",
-      "prettier --write"
-    ]
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.13.0",
-    "@typescript-eslint/parser": "^5.13.0",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.1.3",
-    "husky": "^9.0.11",
-    "prettier": "^3.3.2"
-  }
+    "name": "btb-functions",
+    "version": "0.0.1",
+    "description": "A simple example of using Edge Functions",
+    "private": true,
+    "scripts": {
+        "lint": "eslint . --ext .ts",
+        "format": "prettier --write .",
+        "prepare": "husky install",
+        "test": "deno test",
+        "test:coverage": "deno test --coverage && deno coverage coverage"
+    },
+    "lint-staged": {
+        "**/*.ts": [
+            "eslint --fix",
+            "prettier --write"
+        ]
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.13.0",
+        "@typescript-eslint/parser": "^5.13.0",
+        "eslint": "^8.56.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.1.3",
+        "husky": "^9.0.11",
+        "prettier": "^3.3.2"
+    }
 }
