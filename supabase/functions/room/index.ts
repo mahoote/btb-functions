@@ -5,6 +5,7 @@ import { createSupabaseClient } from '../_shared/supabaseClient.ts'
 import {
     addPlayerToRoom,
     createRoom,
+    deleteRoom,
     removePlayerFromRoom,
 } from '../player/repositories/roomRepository.ts'
 
@@ -27,11 +28,11 @@ async function handleCreateRoom(req: Request) {
 }
 
 /**
- * The endpoint to add a player to a room.
+ * The endpoint to delete a room.
  * @param req
  */
-async function handleAddPlayerToRoom(req: Request) {
-    const playerHasRoom: PlayerHasRoomCreateDto = await req.json()
+async function handleDeleteRoom(req: Request) {
+    const { roomId } = await req.json()
 
     const authHeader = req.headers.get('Authorization')
 
@@ -39,10 +40,19 @@ async function handleAddPlayerToRoom(req: Request) {
         return createErrorResponse('Unauthorized', 401)
     }
 
-    const room = await addPlayerToRoom(
-        createSupabaseClient('player', authHeader),
-        playerHasRoom
-    )
+    await deleteRoom(createSupabaseClient('player', authHeader), roomId)
+
+    return new Response(null, { status: 204 })
+}
+
+/**
+ * The endpoint to add a player to a room.
+ * @param req
+ */
+async function handleAddPlayerToRoom(req: Request) {
+    const playerHasRoom: PlayerHasRoomCreateDto = await req.json()
+
+    const room = await addPlayerToRoom(createSupabaseClient('player'), playerHasRoom)
 
     return new Response(JSON.stringify(room), { status: 201 })
 }
@@ -54,13 +64,7 @@ async function handleAddPlayerToRoom(req: Request) {
 async function handleRemovePlayerFromRoom(req: Request) {
     const playerHasRoom: PlayerHasRoomDeleteDto = await req.json()
 
-    const authHeader = req.headers.get('Authorization')
-
-    if (!authHeader) {
-        return createErrorResponse('Unauthorized', 401)
-    }
-
-    await removePlayerFromRoom(createSupabaseClient('player', authHeader), playerHasRoom)
+    await removePlayerFromRoom(createSupabaseClient('player'), playerHasRoom)
 
     return new Response(null, { status: 204 })
 }
@@ -76,8 +80,11 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
     try {
         switch (true) {
-            case method === 'POST' && pathname === '/room': {
+            case method === 'POST': {
                 return await handleCreateRoom(req)
+            }
+            case method === 'DELETE': {
+                return await handleDeleteRoom(req)
             }
             case method === 'POST' && pathname.startsWith('/room/player'): {
                 return await handleAddPlayerToRoom(req)

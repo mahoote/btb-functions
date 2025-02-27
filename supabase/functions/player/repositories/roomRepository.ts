@@ -39,6 +39,19 @@ export async function createRoom(
 }
 
 /**
+ * Deletes a room.
+ * @param supabase
+ * @param roomId
+ */
+export async function deleteRoom(supabase: SupabaseClient, roomId: number) {
+    const { error } = await supabase.from('room').delete().match({ id: roomId })
+
+    if (error) {
+        throw new Error(error.message || 'Unknown database error')
+    }
+}
+
+/**
  * Adds a player to a room.
  * @param supabase
  * @param playerHasRoom
