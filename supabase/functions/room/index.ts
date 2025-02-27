@@ -86,17 +86,17 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
     try {
         switch (true) {
-            case method === 'POST': {
-                return await handleCreateRoom(req)
-            }
-            case method === 'PUT': {
-                return await handleUpdateRoom(req)
-            }
             case method === 'POST' && pathname.startsWith('/room/player'): {
                 return await handleAddPlayerToRoom(req)
             }
             case method === 'DELETE' && pathname.startsWith('/room/player'): {
                 return await handleRemovePlayerFromRoom(req)
+            }
+            case method === 'POST': {
+                return await handleCreateRoom(req)
+            }
+            case method === 'PUT': {
+                return await handleUpdateRoom(req)
             }
             default:
                 return createErrorResponse('Not found', 404)
