@@ -1,4 +1,5 @@
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
+
 import { PlayerPreference } from '../../types/gamePreferences.ts'
 import { ActivityEnum, DrunkEnum } from '../../types/gameEnum.ts'
 import { filterPlayerIdsWithChallenge } from '../../utils/challengeUtils.ts'

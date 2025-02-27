@@ -1,4 +1,5 @@
 import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8'
+
 import { SupabaseResponse } from '../../_shared/types/supabaseResponse.ts'
 import { Player, PlayerUpdateDto } from '../../_shared/types/player.ts'
 

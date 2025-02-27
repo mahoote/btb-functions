@@ -1,6 +1,7 @@
+import { assertEquals } from 'https://deno.land/std@0.224.0/assert/assert_equals.ts'
+
 import { ActivityEnum, DrunkEnum } from '../../types/gameEnum.ts'
 import { GamePreferences, PlayerPreference } from '../../types/gamePreferences.ts'
-import { assertEquals } from 'https://deno.land/std@0.224.0/assert/assert_equals.ts'
 import GameFlowService from '../../services/gameFlowService.ts'
 import { PlayerChallenge } from '../../types/gameFlow.ts'
 import { createMockGame, MockChallengeService, MockGameService } from '../mocks/mockService.ts'

@@ -1,4 +1,5 @@
 import { assertAlmostEquals, assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
+
 import { GameCategoryEnum } from '../../types/gameEnum.ts'
 import { getAllCategories, getAveragesWithChanceForMargin } from '../../utils/gameUtils.ts'
 

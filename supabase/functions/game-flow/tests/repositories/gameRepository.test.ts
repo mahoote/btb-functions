@@ -1,13 +1,14 @@
+import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8'
+import { assert, assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
+
 import { IGameRepository } from '../../interfaces/IRepository.ts'
 import GameRepository from '../../repositories/gameRepository.ts'
-import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8'
 import {
     AccessoryEnum,
     ActivityEnum,
     DrunkEnum,
     GameCategoryEnum,
 } from '../../types/gameEnum.ts'
-import { assert, assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { GameDto } from '../../types/game.ts'
 
 Deno.test(

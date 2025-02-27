@@ -1,7 +1,8 @@
-import { Challenge } from '../types/challenge.ts'
-import { IChallengeRepository } from '../interfaces/IRepository.ts'
 import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8'
 import { PostgrestError } from 'https://esm.sh/v135/@supabase/postgrest-js@1.8.6/dist/module/types.d.ts'
+
+import { Challenge } from '../types/challenge.ts'
+import { IChallengeRepository } from '../interfaces/IRepository.ts'
 
 export default class ChallengeRepository implements IChallengeRepository {
     constructor(private supabaseClient: SupabaseClient) {}

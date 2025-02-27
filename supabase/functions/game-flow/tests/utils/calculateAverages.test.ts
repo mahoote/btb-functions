@@ -1,6 +1,7 @@
+import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
+
 import { PlayerPreference, PreferenceAverages } from '../../types/gamePreferences.ts'
 import { ActivityEnum, DrunkEnum } from '../../types/gameEnum.ts'
-import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import calculateAverages from '../../utils/calculateAverages.ts'
 
 Deno.test('calculateAverages - should get averages as 1', () => {

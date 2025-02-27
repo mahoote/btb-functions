@@ -1,5 +1,6 @@
 import { corsHeaders } from '../_shared/utils/cors.ts'
 import { createErrorResponse } from '../_shared/response.ts'
+
 import { GamePreferences } from './types/gamePreferences.ts'
 import DIContainer from './di.ts'
 

@@ -1,11 +1,5 @@
 import { corsHeaders } from '../_shared/utils/cors.ts'
 import { createErrorResponse } from '../_shared/response.ts'
-import {
-    PlayerHasRoomCreateDto,
-    PlayerHasRoomDeleteDto,
-    RoomCreateDto,
-    RoomUpdateDto,
-} from './type/room.ts'
 import { createSupabaseClient } from '../_shared/supabaseClient.ts'
 import {
     addPlayerToRoom,
@@ -13,6 +7,13 @@ import {
     removePlayerFromRoom,
     updateRoom,
 } from '../player/repositories/roomRepository.ts'
+
+import {
+    PlayerHasRoomCreateDto,
+    PlayerHasRoomDeleteDto,
+    RoomCreateDto,
+    RoomUpdateDto,
+} from './type/room.ts'
 
 /**
  * The endpoint to create a room.

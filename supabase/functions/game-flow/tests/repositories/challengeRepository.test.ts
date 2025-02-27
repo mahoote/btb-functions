@@ -1,6 +1,7 @@
 import { assertEquals, assertRejects } from 'https://deno.land/std@0.224.0/assert/mod.ts'
-import ChallengeRepository from '../../repositories/challengeRepository.ts'
 import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8'
+
+import ChallengeRepository from '../../repositories/challengeRepository.ts'
 import { IChallengeRepository } from '../../interfaces/IRepository.ts'
 
 Deno.test('fetchRandomChallenge - should return a challenge', async () => {

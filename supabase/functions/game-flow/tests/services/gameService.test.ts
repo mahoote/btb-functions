@@ -4,11 +4,12 @@ import {
     assertLess,
     assertRejects,
 } from 'https://deno.land/std@0.224.0/assert/mod.ts'
+import sinon from 'npm:sinon'
+
 import GameService from '../../services/gameService.ts'
 import { ActivityEnum, DrunkEnum, GameCategoryEnum } from '../../types/gameEnum.ts'
 import { MockGameRepository } from '../mocks/mockRepository.ts'
 import { getAllCategories } from '../../utils/gameUtils.ts'
-import sinon from 'npm:sinon'
 
 Deno.test('assembleGameList - should return 1 game per category', async () => {
     const gameRepository = new MockGameRepository()

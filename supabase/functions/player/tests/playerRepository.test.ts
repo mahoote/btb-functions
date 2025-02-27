@@ -1,7 +1,8 @@
-import { PlayerUpdateDto } from '../../_shared/types/player.ts'
-import { updatePlayer } from '../repositories/playerRepository.ts'
 import { assertEquals, assertRejects } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8'
+
+import { PlayerUpdateDto } from '../../_shared/types/player.ts'
+import { updatePlayer } from '../repositories/playerRepository.ts'
 
 // Mock SupabaseClient
 const mockSupabaseClient = {
