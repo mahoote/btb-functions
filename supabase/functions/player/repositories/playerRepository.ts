@@ -1,7 +1,6 @@
 import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8'
 import { SupabaseResponse } from '../../_shared/types/supabaseResponse.ts'
-import { Player } from '../../game-flow/types/player.ts'
-import { PlayerUpdateDto } from '../types/player.ts'
+import { Player, PlayerUpdateDto } from '../../_shared/types/player.ts'
 
 /**
  * Updates a player by user_id.

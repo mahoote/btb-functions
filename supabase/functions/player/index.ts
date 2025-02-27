@@ -2,7 +2,7 @@ import { corsHeaders } from '../_shared/utils/cors.ts'
 import { createErrorResponse } from '../_shared/response.ts'
 import { createSupabaseClient } from '../_shared/supabaseClient.ts'
 import { updatePlayer } from './repositories/playerRepository.ts'
-import { PlayerUpdateDto } from './types/player.ts'
+import { PlayerUpdateDto } from '../_shared/types/player.ts'
 
 /**
  * The endpoint to update a player.

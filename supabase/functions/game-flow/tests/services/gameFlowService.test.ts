@@ -1,10 +1,10 @@
 import { ActivityEnum, DrunkEnum } from '../../types/gameEnum.ts'
 import { GamePreferences, PlayerPreference } from '../../types/gamePreferences.ts'
-import { Player } from '../../types/player.ts'
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/assert_equals.ts'
 import GameFlowService from '../../services/gameFlowService.ts'
 import { PlayerChallenge } from '../../types/gameFlow.ts'
 import { createMockGame, MockChallengeService, MockGameService } from '../mocks/mockService.ts'
+import { Player } from '../../../_shared/types/player.ts'
 
 Deno.test('gameFlowService - should create a basic flow with a simple outcome', async () => {
     const gameFlowService = new GameFlowService(

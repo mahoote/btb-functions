@@ -1,4 +1,4 @@
-export interface PlayerDto {
+export interface Player {
     id: string
     user_id?: string
     username?: string
