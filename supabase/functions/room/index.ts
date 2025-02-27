@@ -1,12 +1,17 @@
 import { corsHeaders } from '../_shared/utils/cors.ts'
 import { createErrorResponse } from '../_shared/response.ts'
-import { PlayerHasRoomCreateDto, PlayerHasRoomDeleteDto, RoomCreateDto } from './type/room.ts'
+import {
+    PlayerHasRoomCreateDto,
+    PlayerHasRoomDeleteDto,
+    RoomCreateDto,
+    RoomUpdateDto,
+} from './type/room.ts'
 import { createSupabaseClient } from '../_shared/supabaseClient.ts'
 import {
     addPlayerToRoom,
     createRoom,
-    deleteRoom,
     removePlayerFromRoom,
+    updateRoom,
 } from '../player/repositories/roomRepository.ts'
 
 /**
@@ -28,11 +33,11 @@ async function handleCreateRoom(req: Request) {
 }
 
 /**
- * The endpoint to delete a room.
+ * The endpoint to update a room.
  * @param req
  */
-async function handleDeleteRoom(req: Request) {
-    const { roomId } = await req.json()
+async function handleUpdateRoom(req: Request) {
+    const room: RoomUpdateDto = await req.json()
 
     const authHeader = req.headers.get('Authorization')
 
@@ -40,9 +45,9 @@ async function handleDeleteRoom(req: Request) {
         return createErrorResponse('Unauthorized', 401)
     }
 
-    await deleteRoom(createSupabaseClient('player', authHeader), roomId)
+    const gameRoom = await updateRoom(createSupabaseClient('player', authHeader), room)
 
-    return new Response(null, { status: 204 })
+    return new Response(JSON.stringify(gameRoom), { status: 200 })
 }
 
 /**
@@ -83,8 +88,8 @@ Deno.serve(async (req: Request): Promise<Response> => {
             case method === 'POST': {
                 return await handleCreateRoom(req)
             }
-            case method === 'DELETE': {
-                return await handleDeleteRoom(req)
+            case method === 'PUT': {
+                return await handleUpdateRoom(req)
             }
             case method === 'POST' && pathname.startsWith('/room/player'): {
                 return await handleAddPlayerToRoom(req)

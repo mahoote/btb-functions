@@ -5,6 +5,7 @@ import {
     PlayerHasRoomDeleteDto,
     Room,
     RoomCreateDto,
+    RoomUpdateDto,
 } from '../../room/type/room.ts'
 import { SupabaseResponse } from '../../_shared/types/supabaseResponse.ts'
 
@@ -39,16 +40,31 @@ export async function createRoom(
 }
 
 /**
- * Deletes a room.
+ * Updates a room.
  * @param supabase
- * @param roomId
+ * @param room
  */
-export async function deleteRoom(supabase: SupabaseClient, roomId: number) {
-    const { error } = await supabase.from('room').delete().match({ id: roomId })
+export async function updateRoom(supabase: SupabaseClient, room: RoomUpdateDto) {
+    const { data, error }: SupabaseResponse<Room> = await supabase
+        .from('room')
+        .update({
+            name: room.name,
+            max_players: room.maxPlayers,
+            deleted_at: room.deletedAt,
+        })
+        .match({ id: room.roomId })
+        .select()
+        .single()
 
     if (error) {
         throw new Error(error.message || 'Unknown database error')
     }
+
+    if (!data) {
+        throw new Error('Error updating game room')
+    }
+
+    return data
 }
 
 /**

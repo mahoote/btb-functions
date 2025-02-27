@@ -19,6 +19,13 @@ export interface RoomCreateDto {
     maxPlayers?: number
 }
 
+export interface RoomUpdateDto {
+    roomId: number
+    name?: string
+    maxPlayers?: number
+    deletedAt?: string
+}
+
 export interface PlayerHasRoomCreateDto {
     playerId: string
     roomId: number
