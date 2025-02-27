@@ -9,6 +9,7 @@ import {
     RoomUpdateDto,
 } from '../../room/type/room.ts'
 import { SupabaseResponse } from '../../_shared/types/supabaseResponse.ts'
+import { Player } from '../../_shared/types/player.ts'
 
 /**
  * Creates a room.
@@ -115,4 +116,29 @@ export async function removePlayerFromRoom(
     if (error) {
         throw new Error(error.message || 'Unknown database error')
     }
+}
+
+/**
+ * Fetches all players in a room.
+ * @param supabase
+ * @param roomId
+ */
+export async function getPlayersInRoom(supabase: SupabaseClient, roomId: number) {
+    const { data, error } = await supabase
+        .from('player_has_room')
+        .select('player:player_id(*)') // Join with player table
+        .eq('room_id', roomId)
+
+    if (error) {
+        console.error('Error fetching players:', error)
+        throw new Error(error.message || 'Could not fetch players')
+    }
+
+    if (!data) {
+        throw new Error('No data returned')
+    }
+
+    return (data as unknown as { player: Player | null }[])
+        .map(entry => entry.player)
+        .filter((player): player is Player => player !== null)
 }

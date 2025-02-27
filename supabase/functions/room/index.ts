@@ -4,6 +4,7 @@ import { createSupabaseClient } from '../_shared/supabaseClient.ts'
 import {
     addPlayerToRoom,
     createRoom,
+    getPlayersInRoom,
     removePlayerFromRoom,
     updateRoom,
 } from '../player/repositories/roomRepository.ts'
@@ -64,6 +65,22 @@ async function handleAddPlayerToRoom(req: Request) {
 }
 
 /**
+ * The endpoint to get all players in a room.
+ * @param req
+ */
+async function handleGetPlayersInRoom(req: Request) {
+    const roomId = req.url.split('/').pop()
+
+    if (!roomId) {
+        return createErrorResponse('Room ID is missing', 400)
+    }
+
+    const players = await getPlayersInRoom(createSupabaseClient('player'), parseInt(roomId))
+
+    return new Response(JSON.stringify(players), { status: 200 })
+}
+
+/**
  * The endpoint to remove a player from a room.
  * @param req
  */
@@ -86,6 +103,9 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
     try {
         switch (true) {
+            case method === 'GET' && pathname.startsWith('/room/players'): {
+                return await handleGetPlayersInRoom(req)
+            }
             case method === 'POST' && pathname.startsWith('/room/player'): {
                 return await handleAddPlayerToRoom(req)
             }
