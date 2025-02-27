@@ -1,8 +1,12 @@
 import { corsHeaders } from '../_shared/utils/cors.ts'
 import { createErrorResponse } from '../_shared/response.ts'
-import { PlayerHasRoomCreateDto, RoomCreateDto } from './type/room.ts'
+import { PlayerHasRoomCreateDto, PlayerHasRoomDeleteDto, RoomCreateDto } from './type/room.ts'
 import { createSupabaseClient } from '../_shared/supabaseClient.ts'
-import { addPlayerToRoom, createRoom } from '../player/repositories/roomRepository.ts'
+import {
+    addPlayerToRoom,
+    createRoom,
+    removePlayerFromRoom,
+} from '../player/repositories/roomRepository.ts'
 
 /**
  * The endpoint to create a room.
@@ -22,6 +26,10 @@ async function handleCreateRoom(req: Request) {
     return new Response(JSON.stringify(gameRoom), { status: 201 })
 }
 
+/**
+ * The endpoint to add a player to a room.
+ * @param req
+ */
 async function handleAddPlayerToRoom(req: Request) {
     const playerHasRoom: PlayerHasRoomCreateDto = await req.json()
 
@@ -37,6 +45,24 @@ async function handleAddPlayerToRoom(req: Request) {
     )
 
     return new Response(JSON.stringify(room), { status: 201 })
+}
+
+/**
+ * The endpoint to remove a player from a room.
+ * @param req
+ */
+async function handleRemovePlayerFromRoom(req: Request) {
+    const playerHasRoom: PlayerHasRoomDeleteDto = await req.json()
+
+    const authHeader = req.headers.get('Authorization')
+
+    if (!authHeader) {
+        return createErrorResponse('Unauthorized', 401)
+    }
+
+    await removePlayerFromRoom(createSupabaseClient('player', authHeader), playerHasRoom)
+
+    return new Response(null, { status: 204 })
 }
 
 Deno.serve(async (req: Request): Promise<Response> => {
@@ -55,6 +81,9 @@ Deno.serve(async (req: Request): Promise<Response> => {
             }
             case method === 'POST' && pathname.startsWith('/room/player'): {
                 return await handleAddPlayerToRoom(req)
+            }
+            case method === 'DELETE' && pathname.startsWith('/room/player'): {
+                return await handleRemovePlayerFromRoom(req)
             }
             default:
                 return createErrorResponse('Not found', 404)

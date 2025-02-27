@@ -2,6 +2,7 @@ import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8'
 import {
     PlayerHasRoom,
     PlayerHasRoomCreateDto,
+    PlayerHasRoomDeleteDto,
     Room,
     RoomCreateDto,
 } from '../../room/type/room.ts'
@@ -65,4 +66,23 @@ export async function addPlayerToRoom(
     }
 
     return data
+}
+
+/**
+ * Removes a player from a room.
+ * @param supabase
+ * @param playerHasRoom
+ */
+export async function removePlayerFromRoom(
+    supabase: SupabaseClient,
+    playerHasRoom: PlayerHasRoomDeleteDto
+) {
+    const { error } = await supabase.from('player_has_room').delete().match({
+        player_id: playerHasRoom.playerId,
+        room_id: playerHasRoom.roomId,
+    })
+
+    if (error) {
+        throw new Error(error.message || 'Unknown database error')
+    }
 }

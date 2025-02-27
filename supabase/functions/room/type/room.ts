@@ -24,3 +24,8 @@ export interface PlayerHasRoomCreateDto {
     roomId: number
     isHost?: boolean
 }
+
+export interface PlayerHasRoomDeleteDto {
+    playerId: string
+    roomId: number
+}
