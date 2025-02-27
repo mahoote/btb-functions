@@ -1,8 +1,8 @@
 import { corsHeaders } from '../_shared/utils/cors.ts'
 import { createErrorResponse } from '../_shared/response.ts'
-import { RoomCreateDto } from './type/room.ts'
+import { PlayerHasRoomCreateDto, RoomCreateDto } from './type/room.ts'
 import { createSupabaseClient } from '../_shared/supabaseClient.ts'
-import { createRoom } from '../player/repositories/roomRepository.ts'
+import { addPlayerToRoom, createRoom } from '../player/repositories/roomRepository.ts'
 
 /**
  * The endpoint to create a room.
@@ -22,8 +22,27 @@ async function handleCreateRoom(req: Request) {
     return new Response(JSON.stringify(gameRoom), { status: 201 })
 }
 
+async function handleAddPlayerToRoom(req: Request) {
+    const playerHasRoom: PlayerHasRoomCreateDto = await req.json()
+
+    const authHeader = req.headers.get('Authorization')
+
+    if (!authHeader) {
+        return createErrorResponse('Unauthorized', 401)
+    }
+
+    const room = await addPlayerToRoom(
+        createSupabaseClient('player', authHeader),
+        playerHasRoom
+    )
+
+    return new Response(JSON.stringify(room), { status: 201 })
+}
+
 Deno.serve(async (req: Request): Promise<Response> => {
-    const { method } = req
+    const { method, url } = req
+    const urlObj = new URL(url)
+    const pathname = urlObj.pathname
 
     if (method === 'OPTIONS') {
         return new Response('ok', { headers: corsHeaders })
@@ -31,8 +50,11 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
     try {
         switch (true) {
-            case method === 'POST': {
+            case method === 'POST' && pathname === '/room': {
                 return await handleCreateRoom(req)
+            }
+            case method === 'POST' && pathname.startsWith('/room/player'): {
+                return await handleAddPlayerToRoom(req)
             }
             default:
                 return createErrorResponse('Not found', 404)
