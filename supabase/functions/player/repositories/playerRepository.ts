@@ -4,6 +4,29 @@ import { SupabaseResponse } from '../../_shared/types/supabaseResponse.ts'
 import { Player, PlayerUpdateDto } from '../../_shared/types/player.ts'
 
 /**
+ * Gets a player by user_id.
+ * @param supabase
+ * @param userId
+ */
+export async function getPlayer(supabase: SupabaseClient, userId: string) {
+    const { data, error }: SupabaseResponse<Player> = await supabase
+        .from('player')
+        .select()
+        .eq('user_id', userId)
+        .single()
+
+    if (error) {
+        throw new Error(error.message || 'Unknown database error')
+    }
+
+    if (!data) {
+        throw new Error('Error returning player')
+    }
+
+    return data
+}
+
+/**
  * Updates a player by user_id.
  * @param supabase
  * @param playerUpdateDto
