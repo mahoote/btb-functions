@@ -1,17 +1,15 @@
 import { corsHeaders } from '../_shared/utils/cors.ts'
 import { createErrorResponse } from '../_shared/response.ts'
+import { RoomCreateDto } from './type/room.ts'
 import { createSupabaseClient } from '../_shared/supabaseClient.ts'
-import { updatePlayer } from './repositories/playerRepository.ts'
-import { PlayerUpdateDto } from '../_shared/types/player.ts'
-import { RoomCreateDto } from '../room/type/room.ts'
-import { createRoom } from './repositories/roomRepository.ts'
+import { createRoom } from '../player/repositories/roomRepository.ts'
 
 /**
- * The endpoint to update a player.
+ * The endpoint to create a room.
  * @param req
  */
-async function handleUpdatePlayer(req: Request) {
-    const playerUpdateDto: PlayerUpdateDto = await req.json()
+async function handleCreateRoom(req: Request) {
+    const room: RoomCreateDto = await req.json()
 
     const authHeader = req.headers.get('Authorization')
 
@@ -19,12 +17,9 @@ async function handleUpdatePlayer(req: Request) {
         return createErrorResponse('Unauthorized', 401)
     }
 
-    const player = await updatePlayer(
-        createSupabaseClient('player', authHeader),
-        playerUpdateDto
-    )
+    const gameRoom = await createRoom(createSupabaseClient('player', authHeader), room)
 
-    return new Response(JSON.stringify(player), { status: 200 })
+    return new Response(JSON.stringify(gameRoom), { status: 201 })
 }
 
 Deno.serve(async (req: Request): Promise<Response> => {
@@ -36,8 +31,8 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
     try {
         switch (true) {
-            case method === 'PUT': {
-                return await handleUpdatePlayer(req)
+            case method === 'POST': {
+                return await handleCreateRoom(req)
             }
             default:
                 return createErrorResponse('Not found', 404)

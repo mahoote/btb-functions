@@ -16,10 +16,10 @@ export async function updatePlayer(
         .update({
             updated_at: new Date().toISOString(),
             username: playerUpdateDto.username,
-            first_name: playerUpdateDto.first_name,
-            last_name: playerUpdateDto.last_name,
+            first_name: playerUpdateDto.firstName,
+            last_name: playerUpdateDto.lastName,
         })
-        .eq('user_id', playerUpdateDto.user_id)
+        .eq('user_id', playerUpdateDto.userId)
         .select()
         .single()
 
