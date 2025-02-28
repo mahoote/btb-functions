@@ -12,20 +12,22 @@ import { SupabaseResponse } from '../../_shared/types/supabaseResponse.ts'
 import { Player } from '../../_shared/types/player.ts'
 
 /**
- * Creates a room.
+ * Creates a room with the host player.
  * @param supabase
  * @param name
  * @param maxPlayers
+ * @param hostPlayerId
  */
 export async function createRoom(
     supabase: SupabaseClient,
-    { name, maxPlayers }: RoomCreateDto
+    { name, maxPlayers, hostPlayerId }: RoomCreateDto
 ) {
     const { data, error }: SupabaseResponse<Room> = await supabase
         .from('room')
         .insert({
             name,
             max_players: maxPlayers,
+            host_player_id: hostPlayerId,
         })
         .select()
         .single()
