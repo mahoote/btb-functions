@@ -5,9 +5,10 @@ import {
     addPlayerToRoom,
     createRoom,
     getPlayersInRoom,
+    getRoom,
     removePlayerFromRoom,
     updateRoom,
-} from '../player/repositories/roomRepository.ts'
+} from './repositories/roomRepository.ts'
 
 import {
     PlayerHasRoomCreateDto,
@@ -32,6 +33,22 @@ async function handleCreateRoom(req: Request) {
     const gameRoom = await createRoom(createSupabaseClient('player', authHeader), room)
 
     return new Response(JSON.stringify(gameRoom), { status: 201 })
+}
+
+/**
+ * The endpoint to get a room.
+ * @param req
+ */
+async function handleGetRoom(req: Request) {
+    const roomId = req.url.split('/').pop()
+
+    if (!roomId) {
+        return createErrorResponse('Room ID is missing', 400)
+    }
+
+    const gameRoom = await getRoom(createSupabaseClient('player'), parseInt(roomId))
+
+    return new Response(JSON.stringify(gameRoom), { status: 200 })
 }
 
 /**
@@ -117,6 +134,9 @@ Deno.serve(async (req: Request): Promise<Response> => {
             }
             case method === 'PUT': {
                 return await handleUpdateRoom(req)
+            }
+            case method === 'GET': {
+                return await handleGetRoom(req)
             }
             default:
                 return createErrorResponse('Not found', 404)

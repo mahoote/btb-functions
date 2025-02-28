@@ -7,7 +7,7 @@ import {
     Room,
     RoomCreateDto,
     RoomUpdateDto,
-} from '../../room/type/room.ts'
+} from '../type/room.ts'
 import { SupabaseResponse } from '../../_shared/types/supabaseResponse.ts'
 import { Player } from '../../_shared/types/player.ts'
 
@@ -36,6 +36,29 @@ export async function createRoom(
 
     if (!data) {
         throw new Error('Error creating game room')
+    }
+
+    return data
+}
+
+/**
+ * Fetches a room.
+ * @param supabase
+ * @param id
+ */
+export async function getRoom(supabase: SupabaseClient, id: number) {
+    const { data, error }: SupabaseResponse<Room> = await supabase
+        .from('room')
+        .select()
+        .eq('id', id)
+        .single()
+
+    if (error) {
+        throw new Error(error.message || 'Unknown database error')
+    }
+
+    if (!data) {
+        throw new Error('Error fetching game room')
     }
 
     return data
