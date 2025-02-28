@@ -1,8 +1,12 @@
 import { corsHeaders } from '../_shared/utils/cors.ts'
 import { createErrorResponse } from '../_shared/response.ts'
 import { createSupabaseClient } from '../_shared/supabaseClient.ts'
-import { PlayerDto } from '../_shared/types/player.ts'
-import { createPlayer, getPlayer, updatePlayer } from './repositories/playerRepository.ts'
+import { PlayerCreateDto, PlayerUpdateDto } from '../_shared/types/player.ts'
+import {
+    createPlayer,
+    getPlayerByUserId,
+    updatePlayer,
+} from './repositories/playerRepository.ts'
 
 /**
  * The endpoint to get a player.
@@ -22,7 +26,7 @@ async function handleGetPlayer(req: Request) {
         return createErrorResponse('Unauthorized', 401)
     }
 
-    const player = await getPlayer(createSupabaseClient('player', authHeader), userId)
+    const player = await getPlayerByUserId(createSupabaseClient('player', authHeader), userId)
 
     return new Response(JSON.stringify(player), { status: 200 })
 }
@@ -32,7 +36,7 @@ async function handleGetPlayer(req: Request) {
  * @param req
  */
 async function handleCreatePlayer(req: Request) {
-    const playerDto: PlayerDto = await req.json()
+    const playerDto: PlayerCreateDto = await req.json()
 
     const player = await createPlayer(createSupabaseClient('player'), playerDto)
 
@@ -44,22 +48,13 @@ async function handleCreatePlayer(req: Request) {
  * @param req
  */
 async function handleUpdatePlayer(req: Request) {
-    const playerUpdateDto: PlayerDto = await req.json()
+    const playerUpdateDto: PlayerUpdateDto = await req.json()
 
-    const authHeader = req.headers.get('Authorization')
-
-    if (!authHeader) {
-        return createErrorResponse('Unauthorized', 401)
+    if (!playerUpdateDto.id) {
+        return createErrorResponse('Missing player id', 400)
     }
 
-    if (!playerUpdateDto.userId) {
-        return createErrorResponse('Missing user_id', 400)
-    }
-
-    const player = await updatePlayer(
-        createSupabaseClient('player', authHeader),
-        playerUpdateDto
-    )
+    const player = await updatePlayer(createSupabaseClient('player'), playerUpdateDto)
 
     return new Response(JSON.stringify(player), { status: 200 })
 }

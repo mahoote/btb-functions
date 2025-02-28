@@ -10,11 +10,19 @@ export interface Player {
     deleted_at?: string
 }
 
-export interface PlayerDto {
-    userId?: string
+export interface PlayerUpdateDto {
+    id: string
     username?: string
     firstName?: string
     lastName?: string
     isGuest?: boolean
     deletedAt?: string
+}
+
+export interface PlayerCreateDto {
+    userId?: string
+    username?: string
+    firstName?: string
+    lastName?: string
+    isGuest?: boolean
 }

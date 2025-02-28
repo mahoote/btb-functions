@@ -1,14 +1,37 @@
 import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8'
 
 import { SupabaseResponse } from '../../_shared/types/supabaseResponse.ts'
-import { Player, PlayerDto } from '../../_shared/types/player.ts'
+import { Player, PlayerCreateDto, PlayerUpdateDto } from '../../_shared/types/player.ts'
+
+/**
+ * Gets a player by id.
+ * @param supabase
+ * @param id
+ */
+export async function getPlayer(supabase: SupabaseClient, id: string) {
+    const { data, error }: SupabaseResponse<Player> = await supabase
+        .from('player')
+        .select()
+        .eq('id', id)
+        .single()
+
+    if (error) {
+        throw new Error(error.message || 'Unknown database error')
+    }
+
+    if (!data) {
+        throw new Error('Error returning player')
+    }
+
+    return data
+}
 
 /**
  * Gets a player by user_id.
  * @param supabase
  * @param userId
  */
-export async function getPlayer(supabase: SupabaseClient, userId: string) {
+export async function getPlayerByUserId(supabase: SupabaseClient, userId: string) {
     const { data, error }: SupabaseResponse<Player> = await supabase
         .from('player')
         .select()
@@ -31,7 +54,7 @@ export async function getPlayer(supabase: SupabaseClient, userId: string) {
  * @param supabase
  * @param playerDto
  */
-export async function createPlayer(supabase: SupabaseClient, playerDto: PlayerDto) {
+export async function createPlayer(supabase: SupabaseClient, playerDto: PlayerCreateDto) {
     const { data, error }: SupabaseResponse<Player> = await supabase
         .from('player')
         .insert([
@@ -58,12 +81,15 @@ export async function createPlayer(supabase: SupabaseClient, playerDto: PlayerDt
 }
 
 /**
- * Updates a player by user_id.
+ * Updates a player by id.
  * @param supabase
  * @param playerUpdateDto
  */
-export async function updatePlayer(supabase: SupabaseClient, playerUpdateDto: PlayerDto) {
-    const existingPlayer = await getPlayer(supabase, playerUpdateDto.userId ?? '')
+export async function updatePlayer(
+    supabase: SupabaseClient,
+    playerUpdateDto: PlayerUpdateDto
+) {
+    const existingPlayer = await getPlayer(supabase, playerUpdateDto.id ?? '')
 
     const { data, error }: SupabaseResponse<Player> = await supabase
         .from('player')
@@ -75,7 +101,7 @@ export async function updatePlayer(supabase: SupabaseClient, playerUpdateDto: Pl
             is_guest: playerUpdateDto.isGuest ?? existingPlayer.is_guest,
             deleted_at: playerUpdateDto.deletedAt ?? existingPlayer.deleted_at,
         })
-        .eq('user_id', playerUpdateDto.userId)
+        .eq('id', playerUpdateDto.id)
         .select()
         .single()
 
