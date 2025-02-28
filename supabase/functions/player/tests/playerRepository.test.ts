@@ -1,7 +1,7 @@
 import { assertEquals, assertRejects } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.39.8'
 
-import { PlayerUpdateDto } from '../../_shared/types/player.ts'
+import { PlayerDto } from '../../_shared/types/player.ts'
 import { updatePlayer } from '../repositories/playerRepository.ts'
 
 // Mock SupabaseClient
@@ -28,7 +28,7 @@ const mockSupabaseClient = {
 } as unknown as SupabaseClient
 
 Deno.test('updatePlayer successfully updates and returns the player', async () => {
-    const playerUpdateDto: PlayerUpdateDto = {
+    const playerUpdateDto: PlayerDto = {
         user_id: '123',
         username: 'updatedUser',
         first_name: 'John',
@@ -60,7 +60,7 @@ Deno.test('updatePlayer throws an error if database update fails', async () => {
         }),
     } as unknown as SupabaseClient
 
-    const playerUpdateDto: PlayerUpdateDto = {
+    const playerUpdateDto: PlayerDto = {
         user_id: '123',
         username: 'updatedUser',
         first_name: 'John',

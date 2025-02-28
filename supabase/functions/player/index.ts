@@ -1,8 +1,8 @@
 import { corsHeaders } from '../_shared/utils/cors.ts'
 import { createErrorResponse } from '../_shared/response.ts'
 import { createSupabaseClient } from '../_shared/supabaseClient.ts'
-import { PlayerUpdateDto } from '../_shared/types/player.ts'
-import { getPlayer, updatePlayer } from './repositories/playerRepository.ts'
+import { PlayerDto } from '../_shared/types/player.ts'
+import { createPlayer, getPlayer, updatePlayer } from './repositories/playerRepository.ts'
 
 /**
  * The endpoint to get a player.
@@ -28,16 +28,32 @@ async function handleGetPlayer(req: Request) {
 }
 
 /**
+ * The endpoint to create a player.
+ * @param req
+ */
+async function handleCreatePlayer(req: Request) {
+    const playerDto: PlayerDto = await req.json()
+
+    const player = await createPlayer(createSupabaseClient('player'), playerDto)
+
+    return new Response(JSON.stringify(player), { status: 201 })
+}
+
+/**
  * The endpoint to update a player.
  * @param req
  */
 async function handleUpdatePlayer(req: Request) {
-    const playerUpdateDto: PlayerUpdateDto = await req.json()
+    const playerUpdateDto: PlayerDto = await req.json()
 
     const authHeader = req.headers.get('Authorization')
 
     if (!authHeader) {
         return createErrorResponse('Unauthorized', 401)
+    }
+
+    if (!playerUpdateDto.userId) {
+        return createErrorResponse('Missing user_id', 400)
     }
 
     const player = await updatePlayer(
@@ -59,6 +75,9 @@ Deno.serve(async (req: Request): Promise<Response> => {
         switch (true) {
             case method === 'GET': {
                 return await handleGetPlayer(req)
+            }
+            case method === 'POST': {
+                return await handleCreatePlayer(req)
             }
             case method === 'PUT': {
                 return await handleUpdatePlayer(req)
