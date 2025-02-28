@@ -71,6 +71,8 @@ export async function updateRoom(supabase: SupabaseClient, room: RoomUpdateDto) 
 
 /**
  * Adds a player to a room.
+ * First validate if the player is already in a room.
+ * If so, remove the player from the previous room.
  * @param supabase
  * @param playerHasRoom
  */
@@ -78,6 +80,19 @@ export async function addPlayerToRoom(
     supabase: SupabaseClient,
     playerHasRoom: PlayerHasRoomCreateDto
 ) {
+    const { data: existingPlayerHasRoom }: SupabaseResponse<PlayerHasRoom> = await supabase
+        .from('player_has_room')
+        .select()
+        .eq('player_id', playerHasRoom.playerId)
+        .single()
+
+    if (existingPlayerHasRoom) {
+        await removePlayerFromRoom(supabase, {
+            playerId: playerHasRoom.playerId,
+            roomId: existingPlayerHasRoom.room_id,
+        })
+    }
+
     const { data, error }: SupabaseResponse<PlayerHasRoom> = await supabase
         .from('player_has_room')
         .insert({
