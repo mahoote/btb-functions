@@ -6,7 +6,7 @@
     "scripts": {
         "lint": "eslint --fix . --ext .js,.jsx,.ts,.tsx",
         "format": "prettier --write .",
-        "prepare": "husky install",
+        "prepare": "husky",
         "test": "deno test",
         "test:coverage": "deno test --coverage && deno coverage coverage"
     },
