@@ -1,7 +1,7 @@
 {
-    "name": "btb-functions",
-    "version": "0.0.1",
-    "description": "A simple example of using Edge Functions",
+    "name": "drunkyard-supabase",
+    "version": "0.1.0",
+    "description": "Drunkyard app supabase edge functions",
     "private": true,
     "scripts": {
         "lint": "eslint . --ext .ts",
