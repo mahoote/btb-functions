@@ -79,7 +79,7 @@ export async function updateRoom(supabase: SupabaseClient, room: RoomUpdateDto) 
             max_players: room.maxPlayers,
             deleted_at: room.deletedAt,
         })
-        .match({ id: room.roomId })
+        .match({ id: room.id })
         .select()
         .single()
 
